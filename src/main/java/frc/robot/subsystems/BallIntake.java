@@ -15,9 +15,11 @@ public class BallIntake extends SubsystemBase {
   public void ballTake(){//intake- RR
     m_Intake.set(.7);
   }
+
   public void ballTakeReverse(){//move wheels out- RR
     m_Intake.set(-.7);
   }
+  
   public void stop(){//stop- RR
     m_Intake.set(0);
   }
