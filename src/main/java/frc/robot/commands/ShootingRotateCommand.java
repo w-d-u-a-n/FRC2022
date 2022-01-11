@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ShootingRotate;
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -29,11 +30,15 @@ public class ShootingRotateCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_subsystem.move(RobotContainer.getShootAngle());
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_subsystem.stop();
+  }
 
   // Returns true when the command should end.
   @Override

@@ -36,6 +36,16 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {}
 
+  public static double getShootSpeedValue(){//implement vision here later- RR 1/11/2022
+    double value = Math.random();
+    return value; 
+  }
+
+  public static double getShootAngle(){//implement vision here later- RR 1/11/2022
+    double value = Math.random();
+    return value; 
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
