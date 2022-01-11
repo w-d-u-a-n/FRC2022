@@ -4,11 +4,23 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BallIntake extends SubsystemBase {
   /** Creates a new BallIntake. */
+  private PWMTalonSRX m_Intake = new PWMTalonSRX(0);
   public BallIntake() {}
+
+  public void ballTake(){//intake- RR
+    m_Intake.set(.7);
+  }
+  public void ballTakeReverse(){//move wheels out- RR
+    m_Intake.set(-.7);
+  }
+  public void stop(){//stop- RR
+    m_Intake.set(0);
+  }
 
   @Override
   public void periodic() {
