@@ -11,6 +11,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
@@ -23,6 +24,8 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //RR 1/11/2022
+  public static final XboxController m_driverController = new XboxController(0);//change
+
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Auto m_auto = new Auto();
   private final BallIntake m_BallIntake = new BallIntake();
@@ -65,7 +68,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_BallIntakeCommand);
+  }
 
   public static double getShootSpeedValue(){//implement vision here later- RR 1/11/2022
     double value = Math.random();
@@ -82,7 +87,7 @@ public class RobotContainer {
     rightEncoder.reset();
     return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
   }
-  
+
 /**
  * Pseudocode from https://frc-pdr.readthedocs.io/en/latest/control/gyro.html
  * function rotateToAngle(targetAngle):
