@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
@@ -41,6 +42,9 @@ public class RobotContainer {
   private final ElevatorMoveBottomCommand m_ElevatorMoveBottomCommand = new ElevatorMoveBottomCommand(m_Elevator);
   private final ShootingRotateCommand m_ShootingRotateCommand = new ShootingRotateCommand(m_ShootingRotate);
 
+  public static Encoder leftEncoder = new Encoder(0,1);
+  public static Encoder rightEncoder = new Encoder(2, 3);
+
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -65,6 +69,12 @@ public class RobotContainer {
   public static double getShootAngle(){//implement vision here later- RR 1/11/2022
     double value = Math.random();
     return value; 
+  }
+
+  public static double getDistance() { 
+    leftEncoder.reset();
+    rightEncoder.reset();
+    return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
   }
 
   /**
