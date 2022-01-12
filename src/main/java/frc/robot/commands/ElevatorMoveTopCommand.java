@@ -18,7 +18,7 @@ public class ElevatorMoveTopCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public ElevatorMoveTopCommand(Elevator subsystem) {
-    m_subsystem.elevatorMoveTop();//FZ
+    m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -30,7 +30,7 @@ public class ElevatorMoveTopCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.elevatorMoveTop();//FZ
+    m_subsystem.moveUp();//FZ
   }
   
 
