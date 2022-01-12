@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climbing extends SubsystemBase {
   /** Creates a new Climbing. */
+  private PWMTalonSRX m_Climbing = new PWMTalonSRX(0); //set port
+  
   public Climbing() {}
 
   public void climbUp(){
@@ -15,10 +17,10 @@ public class Climbing extends SubsystemBase {
   }
   public void climbDown(){
   m_Climbing.set (-0.5);
-  }
+    }
 
   public void stop(){
-  m_Climbing.set (0);
+    m_Climbing.set (0);
   }
   @Override
   public void periodic() {
