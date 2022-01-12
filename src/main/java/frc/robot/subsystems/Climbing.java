@@ -10,6 +10,16 @@ public class Climbing extends SubsystemBase {
   /** Creates a new Climbing. */
   public Climbing() {}
 
+  public void climbUp(){
+  m_Climbing.set (0.5);
+  }
+  public void climbDown(){
+  m_Climbing.set (-0.5);
+  }
+
+  public void stop(){
+  m_Climbing.set (0);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

@@ -29,11 +29,16 @@ public class ClimbingHangCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+  m_subsystem.climbUp();
+  //im not sure if this is where this goes  
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  m_subsystem.stop();
+  }
 
   // Returns true when the command should end.
   @Override
