@@ -70,6 +70,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_BallIntakeCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_ElevatorMoveBottomCommand);
+    new JoystickButton(m_driverController, XboxController.Axis.kRightX.value).whileHeld(m_DriveCommand);
   }
 
   public static double getShootSpeedValue(){//implement vision here later- RR 1/11/2022
