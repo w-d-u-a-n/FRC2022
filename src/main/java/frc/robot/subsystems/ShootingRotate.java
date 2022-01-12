@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ShootingRotate extends SubsystemBase {
   /** Creates a new ShootingRotate. */
   private PWMTalonSRX m_Rotator = new PWMTalonSRX(0);//Change for port- RR 1/11/2022
+
   public ShootingRotate() {}
 
   @Override
