@@ -11,6 +11,8 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -46,6 +48,10 @@ public class RobotContainer {
   public static Encoder rightEncoder = new Encoder(2, 3);
 
 
+  /**
+   * TO-DO: Edit dynamic type according to what gyro sensor we have and check constructor params
+   */
+  private final static Gyro m_GyroSensor = new ADXRS450_Gyro(); //HC - 01/11/22
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -76,6 +82,32 @@ public class RobotContainer {
     rightEncoder.reset();
     return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
   }
+  
+/**
+ * Pseudocode from https://frc-pdr.readthedocs.io/en/latest/control/gyro.html
+ * function rotateToAngle(targetAngle):
+    error = targetAngle - gyroAngle # check out wpilib documentation for getting the angle from the gyro
+    if error > threshold
+        this.rotation =  error*kP
+        return False
+    else:
+        this.rotation = 0
+        return True
+ * 
+ */
+  public static boolean rotateToAngle(double targetAngle){
+    //threshold is subject to change, but represents the accpetable margin of error
+    double threshold = 5;
+    double error = targetAngle - m_GyroSensor.getAngle();
+    if(error > threshold){
+       /**
+        * Add code to adjust motor so that the error is reduced
+        */
+       return false;
+    } else {
+      return true;
+    }
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -86,4 +118,5 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return m_AutoCommand;
   }
+
 }
