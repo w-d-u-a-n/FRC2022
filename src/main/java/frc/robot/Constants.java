@@ -27,6 +27,7 @@ public final class Constants {
         public static final double kP = 1/3600;
         public static final double kI = 0;
         public static final double kD = 0;
+        public static final double kTargetAngle = 0;
         public static final double kDistance = 100;
         public static final double kSpeed = 0.7;
         public static final int IntakePort = 7;
