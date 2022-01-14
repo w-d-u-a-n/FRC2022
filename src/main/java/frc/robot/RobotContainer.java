@@ -13,6 +13,7 @@ import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
 /**
@@ -74,21 +75,41 @@ public class RobotContainer {
     new JoystickButton(m_driverController, XboxController.Axis.kRightX.value).whileHeld(m_DriveCommand);
   }
 
-  public static double getShootSpeedValue(){//implement vision here later- RR 1/11/2022
-    double value = Math.random();
-    return value; 
+  
+
+  public static double limelightTrackingX() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(1);
   }
 
-  public static double getShootAngle(){//implement vision here later- RR 1/11/2022
-    double value = Math.random();
-    return value; 
+  public static double limelightTrackingY() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(1);
   }
+
+  public static double limelightTrackingA() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(1);
+  }
+
+  public static boolean limelightTrackTarget() {
+    if(limelightTrackingX() == 0.0){//change
+      if(limelightTrackingY() == 0.0){//change
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static double getShootSpeedValue(){//implement vision here later- RR 1/11/2022
+    double velocity = limelightTrackingA() * 3.0 + 3.234324;//change this is a function
+    return velocity; 
+  }
+
 
   public static double getDistance() { 
     leftEncoder.reset();
     rightEncoder.reset();
     return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
   }
+
 
 /**
  * Pseudocode from https://frc-pdr.readthedocs.io/en/latest/control/gyro.html
