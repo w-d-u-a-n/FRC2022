@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.SPI;
+import com.kauailabs.navx.frc.AHRS;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -51,11 +53,8 @@ public class RobotContainer {
   public static Encoder leftEncoder = new Encoder(0,1);
   public static Encoder rightEncoder = new Encoder(2, 3);
 
-
-  /**
-   * TO-DO: Edit dynamic type according to what gyro sensor we have and check constructor params
-   */
-  private final static Gyro m_GyroSensor = new ADXRS450_Gyro(); //HC - 01/11/22
+  private static AHRS m_gyro = new AHRS(SPI.Port.kMXP); //HC - 01/13/22
+  private static PIDController turnController = new PIDController(Constants.AutoConstants.kP, Constants.AutoConstants.kI, Constants.AutoConstants.kD);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -111,7 +110,7 @@ public class RobotContainer {
   }
 
 
-/**
+/** HC - 01/12/2022
  * Pseudocode from https://frc-pdr.readthedocs.io/en/latest/control/gyro.html
  * function rotateToAngle(targetAngle):
     error = targetAngle - gyroAngle # check out wpilib documentation for getting the angle from the gyro
@@ -126,11 +125,12 @@ public class RobotContainer {
   public static boolean rotateToAngle(double targetAngle){
     //threshold is subject to change, but represents the accpetable margin of error
     double threshold = 5;
-    double error = targetAngle - m_GyroSensor.getAngle();
+    double error = targetAngle - m_gyro.getAngle();
     if(error > threshold){
        /**
         * Add code to adjust motor so that the error is reduced
         */
+      
        return false;
     } else {
       return true;
