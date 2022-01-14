@@ -17,10 +17,6 @@ public class Shooting extends SubsystemBase {
     m_ShooterTop.set(strength);
   }
 
-  public void shootBottom(){
-    m_ShooterBottom.set(.5);
-  }
-
   public void stop() {
     m_ShooterTop.set(0);
     m_ShooterBottom.set(0);
