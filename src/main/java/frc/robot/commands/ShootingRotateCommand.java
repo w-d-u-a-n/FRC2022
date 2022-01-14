@@ -31,7 +31,9 @@ public class ShootingRotateCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.move(RobotContainer.getShootAngle());
+    if(RobotContainer.limelightTrackTarget() == false){
+      m_subsystem.move(0);
+    }
   }
 
   // Called once the command ends or is interrupted.
