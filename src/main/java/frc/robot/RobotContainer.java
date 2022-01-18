@@ -13,7 +13,10 @@ import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.SPI;
+import com.kauailabs.navx.frc.AHRS;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -39,7 +42,10 @@ public class RobotContainer {
   private final ExampleCommand m_exampleCommand = new ExampleCommand(m_exampleSubsystem);
   private final AutoCommand m_AutoCommand = new AutoCommand(m_auto);
   private final BallIntakeCommand m_BallIntakeCommand = new BallIntakeCommand(m_BallIntake);
+<<<<<<< HEAD
   private final BallShootBottomCommand m_BallShootBottomCommand = new BallShootBottomCommand(m_Shooting); //not created yet
+=======
+>>>>>>> 95180b72bbafdb09954a590427d792022f2a7098
   private final BallShootTopCommand m_BallShootTopCommand = new BallShootTopCommand(m_Shooting);
   private final ClimbingHangCommand m_ClimbingHangCommand = new ClimbingHangCommand(m_Climbing);
   private final ClimbingTraverseCommand m_ClimbingTraverseCommand = new ClimbingTraverseCommand(m_Climbing);
@@ -50,11 +56,8 @@ public class RobotContainer {
   public static Encoder leftEncoder = new Encoder(0,1);
   public static Encoder rightEncoder = new Encoder(2, 3);
 
-
-  /**
-   * TO-DO: Edit dynamic type according to what gyro sensor we have and check constructor params
-   */
-  private final static Gyro m_GyroSensor = new ADXRS450_Gyro(); //HC - 01/11/22
+  private static AHRS m_gyro = new AHRS(SPI.Port.kMXP); //HC - 01/13/22
+  private static PIDController turnController = new PIDController(Constants.AutoConstants.kP, Constants.AutoConstants.kI, Constants.AutoConstants.kD);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -68,8 +71,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-
-
   private void configureButtonBindings() {
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallIntakeCommand);
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
@@ -78,17 +79,37 @@ public class RobotContainer {
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_ClimbingTraverseCommand);
 
     new JoystickButton(m_driverController, XboxController.Axis.kRightX.value).whileHeld(m_DriveCommand);
+
+  }
+
+  
+
+  public static double limelightTrackingX() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(1);
+  }
+
+  public static double limelightTrackingY() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(1);
+  }
+
+  public static double limelightTrackingA() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(1);
+  }
+
+  public static boolean limelightTrackTarget() {
+    if(limelightTrackingX() == 0.0){//change
+      if(limelightTrackingY() == 0.0){//change
+        return true;
+      }
+    }
+    return false;
   }
 
   public static double getShootSpeedValue(){//implement vision here later- RR 1/11/2022
-    double value = Math.random();
-    return value; 
+    double velocity = limelightTrackingA() * 3.0 + 3.234324;//change this is a function
+    return velocity; 
   }
 
-  public static double getShootAngle(){//implement vision here later- RR 1/11/2022
-    double value = Math.random();
-    return value; 
-  }
 
   public static double getDistance() { 
     leftEncoder.reset();
@@ -96,7 +117,8 @@ public class RobotContainer {
     return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
   }
 
-/**
+
+/** HC - 01/12/2022
  * Pseudocode from https://frc-pdr.readthedocs.io/en/latest/control/gyro.html
  * function rotateToAngle(targetAngle):
     error = targetAngle - gyroAngle # check out wpilib documentation for getting the angle from the gyro
@@ -111,11 +133,12 @@ public class RobotContainer {
   public static boolean rotateToAngle(double targetAngle){
     //threshold is subject to change, but represents the accpetable margin of error
     double threshold = 5;
-    double error = targetAngle - m_GyroSensor.getAngle();
+    double error = targetAngle - m_gyro.getAngle();
     if(error > threshold){
        /**
         * Add code to adjust motor so that the error is reduced
         */
+      
        return false;
     } else {
       return true;
