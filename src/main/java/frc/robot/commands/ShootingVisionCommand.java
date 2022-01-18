@@ -8,8 +8,8 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooting;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/** An enhanced shooting command that uses an example subsystem. */
-public class ShootingEnhancedCommand extends CommandBase {
+/** An example command that uses an example subsystem. */
+public class ShootingVisionCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooting m_subsystem;
 
@@ -18,7 +18,7 @@ public class ShootingEnhancedCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShootingEnhancedCommand(Shooting subsystem) {
+  public ShootingVisionCommand(Shooting subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
