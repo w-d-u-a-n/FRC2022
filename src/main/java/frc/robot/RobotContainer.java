@@ -39,9 +39,9 @@ public class RobotContainer {
   private final ExampleCommand m_exampleCommand = new ExampleCommand(m_exampleSubsystem);
   private final AutoCommand m_AutoCommand = new AutoCommand(m_auto);
   private final BallIntakeCommand m_BallIntakeCommand = new BallIntakeCommand(m_BallIntake);
-  private final BallShootBottomCommand m_BallShootBottomCommand = new BallShootBottomCommand(m_Shooting);
+  private final BallShootBottomCommand m_BallShootBottomCommand = new BallShootBottomCommand(m_Shooting); //not created yet
   private final BallShootTopCommand m_BallShootTopCommand = new BallShootTopCommand(m_Shooting);
-  private final ClimbingHangCommand m_ClimbingHangCommand = new ClimbingHangCommand(m_Climbing);//
+  private final ClimbingHangCommand m_ClimbingHangCommand = new ClimbingHangCommand(m_Climbing);
   private final ClimbingTraverseCommand m_ClimbingTraverseCommand = new ClimbingTraverseCommand(m_Climbing);
   private final DriveCommand m_DriveCommand = new DriveCommand(m_RobotDrive);
   private final ElevatorMoveBottomCommand m_ElevatorMoveBottomCommand = new ElevatorMoveBottomCommand(m_Elevator);
@@ -71,7 +71,7 @@ public class RobotContainer {
 
 
   private void configureButtonBindings() {
-    new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallShootBottomCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallIntakeCommand);
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
 
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_ClimbingHangCommand);//og : m_ElevatorMoveBottomCommand
