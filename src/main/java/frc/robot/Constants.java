@@ -30,8 +30,8 @@ public final class Constants {
         public static final double kTargetAngle = 0;
         public static final double kDistance = 100;
         public static final double kSpeed = 0.7;
-        public static final int IntakePort = 7;
-        public static final int OuttakePort = 4 ;
+        public static final int intakePort = 7;
+        public static final int outtakePort = 4 ;
         public static final int shootRotate = 8;
         public static final int hanging = 6;
         public static final int elevator = 5;
