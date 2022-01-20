@@ -21,7 +21,7 @@ public class AutoCommand extends CommandBase {
   private final BallIntake intake_subsystem;
   private final Shooting shooting_subsystem;
   private final ShootingRotate rotator_subsystem;
-  private double m_distance, m_speed, m_angle;
+  private double m_speed, m_angle;
   private Timer t;
   private int[] seconds;
   private final double endTime = 14.5; //end of Autonomous period and just 0.5s to transition
@@ -32,19 +32,17 @@ public class AutoCommand extends CommandBase {
  * @param i_sub - intake subsystem
  * @param s_sub - shooting subsystem
  * @param r_sub - rotating subsystem
- * @param distance
  * @param speed
  * @param angle
  * @param sec
  *        [time to align from start, shooting time, ball retreival]
  */
-  public AutoCommand(RobotDrive d_sub, BallIntake i_sub, Shooting s_sub, ShootingRotate r_sub, double distance, double speed, double angle, int[] sec) {
+  public AutoCommand(RobotDrive d_sub, BallIntake i_sub, Shooting s_sub, ShootingRotate r_sub, double speed, double angle, int[] sec) {
     //HC 01/18/22
     drive_subsystem = d_sub;
     intake_subsystem = i_sub;
     shooting_subsystem = s_sub;
     rotator_subsystem = r_sub;
-    m_distance = distance;
     m_speed = speed;
     m_angle = angle;
     seconds = sec;
