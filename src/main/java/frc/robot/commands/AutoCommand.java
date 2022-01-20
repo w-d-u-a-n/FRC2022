@@ -72,7 +72,7 @@ public class AutoCommand extends CommandBase {
     }
     //Shoot - HC
     while(t.get() < seconds[1]) {
-      shooting_subsystem.shootTop(strength); //TO-DO: Update strength value
+      shooting_subsystem.shootTop(0.5); //TO-DO: Update strength value
     }
     //Retreive ball drive - HC
     while(t.get() < seconds[2]) {
