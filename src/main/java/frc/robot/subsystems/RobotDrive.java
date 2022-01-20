@@ -24,7 +24,15 @@ public class RobotDrive extends SubsystemBase {
   private DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
   public RobotDrive() {}
 
+  /**
+   * 
+   * @param y 
+   *      The robot's speed along the X axis [-1.0, 1.0]. Forward is positive.
+   * @param x
+   *      The robot's rotation rate around the Z axis [-1.0, 1.0]. Clockwise is positive.
+   */
   public void arcadeDriveSimple(double y, double x){
+    //third param = If true, decreases the input sensitivity at low speeds.
     DifferentialDrive.arcadeDriveIK(y, x, false);
   }
 
