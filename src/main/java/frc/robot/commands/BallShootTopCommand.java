@@ -31,12 +31,14 @@ public class BallShootTopCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("BallShootTopCommand execute.");
     m_subsystem.shootTop(RobotContainer.getShootSpeedValue()); //idea: write code in RobotContainer that gets vision value. Rahul Rajaram 1/11/2022 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("BallShootTopCommand end.");
     m_subsystem.stop();
   }
 

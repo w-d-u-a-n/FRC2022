@@ -64,20 +64,21 @@ public class AutoCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("Autocommand execute.");
     //Align robot - HC
     while(t.get() < seconds[0]) {
       drive_subsystem.arcadeDriveSimple(m_speed, m_angle);
     }
     //Shoot - HC
-    while(t.get() < seconds[1]) {
+    while(t.get() > seconds[0] && t.get() < seconds[1]) {
       shooting_subsystem.shootTop(0.5); //TO-DO: Update strength value
     }
     //Retreive ball drive - HC
-    while(t.get() < seconds[2]) {
+    while(t.get() > seconds[1] && t.get() < seconds[2]) {
       drive_subsystem.arcadeDriveSimple(m_speed, m_angle);
     }
     //Retreive ball intake - HC
-    while(t.get() < endTime) {
+    while(t.get() > seconds[2] && t.get() < endTime) {
       intake_subsystem.ballTake();
     }
 
@@ -85,7 +86,9 @@ public class AutoCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    System.out.println("Autocommand end.");
+  }
 
   // Returns true when the command should end.
   @Override

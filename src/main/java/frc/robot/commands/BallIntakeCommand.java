@@ -30,12 +30,14 @@ public class BallIntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("BallIntakeCommand execute.");
     m_subsystem.ballTake();//rr
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("BallIntakeCommand end.");
     m_subsystem.stop();//rr
   }
 
