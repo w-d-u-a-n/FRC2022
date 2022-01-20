@@ -31,12 +31,14 @@ public class DriveCommand extends CommandBase {
   @Override
   public void execute() {
     m_subsystem.arcadeDriveSimple(-.4, 0);
+    System.out.println ("DriveCommand execute."); 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_subsystem.arcadeDriveSimple(0, 0);
+    System.out.println ("DriveCommand end.");
   }
 
   // Returns true when the command should end.

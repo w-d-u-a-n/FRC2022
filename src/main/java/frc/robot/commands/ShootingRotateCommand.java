@@ -33,6 +33,8 @@ public class ShootingRotateCommand extends CommandBase {
   public void execute() {
     if(RobotContainer.limelightTrackTarget() == false){
       m_subsystem.move(0);
+      System.out.println ("ShootingRotateCommand execute.");
+
     }
   }
 
@@ -40,6 +42,7 @@ public class ShootingRotateCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_subsystem.stop();
+    System.out.println ("ShootingRotateCommand end.");
   }
 
   // Returns true when the command should end.

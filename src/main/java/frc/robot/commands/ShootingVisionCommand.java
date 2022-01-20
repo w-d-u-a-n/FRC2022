@@ -32,12 +32,14 @@ public class ShootingVisionCommand extends CommandBase {
   @Override
   public void execute() {
     m_subsystem.shootTop(RobotContainer.getShootSpeedValue());
+    System.out.println ("ShootingVisionCommand execute.");
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_subsystem.stop();
+    System.out.println ("ShootingVisionCommand end.");
   }
 
   // Returns true when the command should end.

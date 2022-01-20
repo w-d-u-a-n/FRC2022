@@ -31,12 +31,16 @@ public class ElevatorMoveBottomCommand extends CommandBase {
   @Override
   public void execute() {
     m_subsystem.moveDown();//FZ
+    System.out.println ("ElevatorMoveBottomCommand execute.");
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_subsystem.stop();//FZ
+    System.out.println ("ElevatorMoveBottomCommand end.");
+
   }
     
     // Returns true when the command should end.
