@@ -40,7 +40,7 @@ public class RobotContainer {
   
 
   private final ExampleCommand m_exampleCommand = new ExampleCommand(m_exampleSubsystem);
-  private final AutoCommand m_AutoCommand = new AutoCommand(m_auto);
+  //private final AutoCommand m_AutoCommand = new AutoCommand(m_auto);
   private final BallIntakeCommand m_BallIntakeCommand = new BallIntakeCommand(m_BallIntake);
   private final BallShootTopCommand m_BallShootTopCommand = new BallShootTopCommand(m_Shooting);
   private final ClimbingHangCommand m_ClimbingHangCommand = new ClimbingHangCommand(m_Climbing);
@@ -68,7 +68,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallIntakeCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_BallIntakeCommand);
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
 
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_ClimbingHangCommand);//og : m_ElevatorMoveBottomCommand
@@ -148,7 +148,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_AutoCommand;
+    return null;
   }
 
 }

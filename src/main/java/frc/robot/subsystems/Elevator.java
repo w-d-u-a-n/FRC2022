@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
-  private PWMTalonSRX m_Elevator = new PWMTalonSRX(0);//change 0
+  private PWMTalonSRX m_Elevator = new PWMTalonSRX(2);//change 0
   public Elevator() {}
   //RR- methods 1/11/22
   public void moveUp(){
