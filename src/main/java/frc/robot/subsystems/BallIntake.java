@@ -6,10 +6,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AutoConstants;
 
 public class BallIntake extends SubsystemBase {
   /** Creates a new BallIntake. */
-  private PWMTalonSRX m_Intake = new PWMTalonSRX(0);
+  private PWMTalonSRX m_Intake = new PWMTalonSRX(AutoConstants.intakePort);
   public BallIntake() {}
 
   public void ballTake(){//intake- RR
