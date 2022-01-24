@@ -68,7 +68,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_BallIntakeCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ElevatorMoveBottomCommand);
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
 
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_ClimbingHangCommand);//og : m_ElevatorMoveBottomCommand
