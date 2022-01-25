@@ -11,6 +11,8 @@ import frc.robot.Constants.AutoConstants;
 public class BallIntake extends SubsystemBase {
   /** Creates a new BallIntake. */
   private PWMTalonSRX m_Intake = new PWMTalonSRX(AutoConstants.intakePort);
+  private PWMTalonSRX m_FixIntake = new PWMTalonSRX(11);
+
   public BallIntake() {}
 
   public void ballTake(){//intake- RR
@@ -23,6 +25,11 @@ public class BallIntake extends SubsystemBase {
   
   public void stop(){//stop- RR
     m_Intake.set(0);
+    m_FixIntake.set(0);
+  }
+
+  public void pushIntake(){
+    m_FixIntake.set(.1);
   }
 
   @Override

@@ -8,7 +8,7 @@ import frc.robot.subsystems.BallIntake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class BallIntakeCommand extends CommandBase {
+public class FixBallIntakeCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final BallIntake m_subsystem1;
 
@@ -17,7 +17,7 @@ public class BallIntakeCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public BallIntakeCommand(BallIntake subsystem) {
+  public FixBallIntakeCommand(BallIntake subsystem) {
     m_subsystem1 = subsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -32,7 +32,7 @@ public class BallIntakeCommand extends CommandBase {
   @Override
   public void execute() {
     System.out.println("BallIntakeCommand execute.");
-    m_subsystem1.ballTake();//rr
+    m_subsystem1.pushIntake();//rr
   }
 
   // Called once the command ends or is interrupted.
