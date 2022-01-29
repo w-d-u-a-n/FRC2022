@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.RobotDrive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 
 /** An example command that uses an example subsystem. */
 public class DriveCommand extends CommandBase {
@@ -30,15 +31,12 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.arcadeDriveSimple(-.4, 0);
-    System.out.println ("DriveCommand execute."); 
+    m_subsystem.takeJoystickInput(RobotContainer.getDriveJoystick()); 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.arcadeDriveSimple(0, 0);
-    System.out.println ("DriveCommand end.");
   }
 
   // Returns true when the command should end.

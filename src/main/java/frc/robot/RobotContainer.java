@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.*;
@@ -27,7 +28,8 @@ import com.kauailabs.navx.frc.AHRS;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //RR 1/11/2022
-  public static final XboxController m_driverController = new XboxController(0);//change
+  public static final XboxController m_driverController = new XboxController(2);//change
+  public static final Joystick m_joystick = new Joystick(0);
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Auto m_auto = new Auto();
@@ -78,6 +80,10 @@ public class RobotContainer {
 
   }
 
+  public static Joystick getDriveJoystick(){
+    return m_joystick;
+    
+  }
   
 
   public static double limelightTrackingX() {

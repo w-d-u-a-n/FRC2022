@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -35,6 +36,11 @@ public class RobotDrive extends SubsystemBase {
   public void arcadeDriveSimple(double y, double x){
     //third param = If true, decreases the input sensitivity at low speeds.
     DifferentialDrive.arcadeDriveIK(y, x, false);
+  }
+
+  public void takeJoystickInput(Joystick joystick){
+    double sensitivity = ((joystick.getThrottle()*-1)/8) + .875;
+    m_drive.arcadeDrive(joystick.getY()*sensitivity, joystick.getX()*sensitivity);
   }
 
   @Override
