@@ -67,7 +67,7 @@ public class AutoCommand extends CommandBase {
     System.out.println("Autocommand execute.");
     //Align robot - HC
     while(t.get() < seconds[0]) {
-      drive_subsystem.arcadeDriveSimple(m_speed, m_angle);
+      drive_subsystem.arcadeDriveSimple(m_speed, m_angle, .5);
     }
     //Shoot - HC
     while(t.get() > seconds[0] && t.get() < seconds[1]) {
@@ -75,7 +75,7 @@ public class AutoCommand extends CommandBase {
     }
     //Retreive ball drive - HC
     while(t.get() > seconds[1] && t.get() < seconds[2]) {
-      drive_subsystem.arcadeDriveSimple(m_speed, m_angle);
+      drive_subsystem.arcadeDriveSimple(m_speed, m_angle, .5);
     }
     //Retreive ball intake - HC
     while(t.get() > seconds[2] && t.get() < endTime) {
