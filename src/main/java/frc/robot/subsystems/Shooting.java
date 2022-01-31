@@ -6,11 +6,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AutoConstants;
 
 public class Shooting extends SubsystemBase {
   /** Creates a new Shooting. */
-  private PWMTalonSRX m_ShooterTop = new PWMTalonSRX(0);//change port later- RR 1/11/22
-  private PWMTalonSRX m_ShooterBottom = new PWMTalonSRX(0);//change port later- RR 1/11/22
+  private PWMTalonSRX m_ShooterTop = new PWMTalonSRX(AutoConstants.shooter);//change port later- RR 1/11/22
   public Shooting() {}
   //methods written by RR on 1/11/22
   public void shootTop(double strength) {
@@ -19,7 +19,7 @@ public class Shooting extends SubsystemBase {
 
   public void stop() {
     m_ShooterTop.set(0);
-    m_ShooterBottom.set(0);
+
   }
 
   @Override

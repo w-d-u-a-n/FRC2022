@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.*;
@@ -27,7 +28,8 @@ import com.kauailabs.navx.frc.AHRS;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //RR 1/11/2022
-  public static final XboxController m_driverController = new XboxController(0);//change
+  public static final XboxController m_driverController = new XboxController(2);//change
+  public static final Joystick m_joystick = new Joystick(0);
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Auto m_auto = new Auto();
@@ -40,7 +42,7 @@ public class RobotContainer {
   
 
   private final ExampleCommand m_exampleCommand = new ExampleCommand(m_exampleSubsystem);
-  private final AutoCommand m_AutoCommand = new AutoCommand(m_auto);
+  //private final AutoCommand m_AutoCommand = new AutoCommand(m_auto);
   private final BallIntakeCommand m_BallIntakeCommand = new BallIntakeCommand(m_BallIntake);
   private final BallShootTopCommand m_BallShootTopCommand = new BallShootTopCommand(m_Shooting);
   private final ClimbingHangCommand m_ClimbingHangCommand = new ClimbingHangCommand(m_Climbing);
@@ -75,7 +77,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallIntakeCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ElevatorMoveBottomCommand);
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
 
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_ClimbingHangCommand);//og : m_ElevatorMoveBottomCommand
@@ -85,6 +87,10 @@ public class RobotContainer {
 
   }
 
+  public static Joystick getDriveJoystick(){
+    return m_joystick;
+    
+  }
   
 
   public static double limelightTrackingX() {
@@ -155,7 +161,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_AutoCommand;
+    return null;
   }
 
 }

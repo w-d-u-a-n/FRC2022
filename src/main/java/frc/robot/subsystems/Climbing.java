@@ -5,11 +5,12 @@
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AutoConstants;
 
 public class Climbing extends SubsystemBase {
   /** Creates a new Climbing. */
-  private PWMTalonSRX m_Climbing1 = new PWMTalonSRX(0); //set port
-  private PWMTalonSRX m_Climbing2 = new PWMTalonSRX(1); //set port
+  private PWMTalonSRX m_Climbing1 = new PWMTalonSRX(AutoConstants.hanging); //set port
+  private PWMTalonSRX m_Climbing2 = new PWMTalonSRX(AutoConstants.hangingTwo); //set port
 
   public Climbing() {}
 

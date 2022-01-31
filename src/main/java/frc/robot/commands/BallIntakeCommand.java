@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /** An example command that uses an example subsystem. */
 public class BallIntakeCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final BallIntake m_subsystem;
+  private final BallIntake m_subsystem1;
 
   /**
    * Creates a new ExampleCommand.
@@ -18,7 +18,8 @@ public class BallIntakeCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public BallIntakeCommand(BallIntake subsystem) {
-    m_subsystem = subsystem;
+    m_subsystem1 = subsystem;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -30,13 +31,15 @@ public class BallIntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.ballTake();//rr
+    System.out.println("BallIntakeCommand execute.");
+    m_subsystem1.ballTake();//rr
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.stop();//rr
+    System.out.println("BallIntakeCommand end.");
+    m_subsystem1.stop();//rr
   }
 
   // Returns true when the command should end.
