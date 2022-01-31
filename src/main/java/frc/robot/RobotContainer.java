@@ -42,10 +42,6 @@ public class RobotContainer {
   private final ExampleCommand m_exampleCommand = new ExampleCommand(m_exampleSubsystem);
   private final AutoCommand m_AutoCommand = new AutoCommand(m_auto);
   private final BallIntakeCommand m_BallIntakeCommand = new BallIntakeCommand(m_BallIntake);
-<<<<<<< HEAD
-  private final BallShootBottomCommand m_BallShootBottomCommand = new BallShootBottomCommand(m_Shooting); //not created yet
-=======
->>>>>>> 95180b72bbafdb09954a590427d792022f2a7098
   private final BallShootTopCommand m_BallShootTopCommand = new BallShootTopCommand(m_Shooting);
   private final ClimbingHangCommand m_ClimbingHangCommand = new ClimbingHangCommand(m_Climbing);
   private final ClimbingTraverseCommand m_ClimbingTraverseCommand = new ClimbingTraverseCommand(m_Climbing);
@@ -63,6 +59,13 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+  }
+
+  public static double getLeftStick(){
+    return m_driverController.getRawAxis(1);
+  }
+  public static double getRightStickXAxis(){
+    return m_driverController.getRawAxis(4);
   }
 
   /**

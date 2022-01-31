@@ -21,11 +21,19 @@ public class RobotDrive extends SubsystemBase {
   private PWMVictorSPX m_frontRight = new PWMVictorSPX(3);
   private MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
 
-  private DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
   public RobotDrive() {}
 
-  public void arcadeDriveSimple(double y, double x){
-    DifferentialDrive.arcadeDriveIK(y, x, false);
+  public void arcadeDriveSimple(double leftStickPos, double rightStickPos, double maxSpeed){
+    double drivePower = Math.pow(leftStickPos, 3);
+    double leftDrive = drivePower + rightStickPos*.5;
+    double rightDrive  = drivePower - rightStickPos*.5;
+
+    leftDrive = leftDrive*maxSpeed;
+    rightDrive = rightDrive*maxSpeed;
+
+    m_left.set(leftDrive);
+    m_right.set(rightDrive);
+
   }
 
   @Override
