@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -23,9 +24,12 @@ public class RobotDrive extends SubsystemBase {
   private PWMVictorSPX m_frontRight = new PWMVictorSPX(AutoConstants.frontRightDrive);
   private MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
 
+
+
   public RobotDrive() {}
 
   public void arcadeDriveSimple(double leftStickPos, double rightStickPos, double maxSpeed){
+
     double drivePower = Math.pow(leftStickPos, 3);
     double leftDrive = drivePower + rightStickPos*.5;
     double rightDrive  = drivePower - rightStickPos*.5;
@@ -34,13 +38,14 @@ public class RobotDrive extends SubsystemBase {
     rightDrive = rightDrive*maxSpeed;
 
     m_left.set(leftDrive);
-    m_right.set(rightDrive);
+    m_right.set(-rightDrive);
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    this.arcadeDriveSimple(RobotContainer.getLeftStick(), RobotContainer.getRightStickXAxis(), .3);
   }
 
   @Override

@@ -14,7 +14,10 @@ import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
 import com.kauailabs.navx.frc.AHRS;
@@ -28,7 +31,7 @@ import com.kauailabs.navx.frc.AHRS;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //RR 1/11/2022
-  public static final XboxController m_driverController = new XboxController(2);//change
+  public static final XboxController m_driverController = new XboxController(1);//change
   public static final Joystick m_joystick = new Joystick(0);
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -60,6 +63,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
+    m_DriveCommand.execute();
     configureButtonBindings();
   }
 
@@ -79,16 +83,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ElevatorMoveBottomCommand);
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
-
-    new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_ClimbingHangCommand);//og : m_ElevatorMoveBottomCommand
-    new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_ClimbingTraverseCommand);
-
-    new JoystickButton(m_driverController, XboxController.Axis.kRightX.value).whileHeld(m_DriveCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_DriveCommand);
 
   }
 
-  public static Joystick getDriveJoystick(){
-    return m_joystick;
+  public static XboxController getDriveJoystick(){
+    return m_driverController;
     
   }
   
@@ -98,18 +98,20 @@ public class RobotContainer {
   }
 
   public static double limelightTrackingY() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(1);
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
   }
 
   public static double limelightTrackingA() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(1);
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
   }
 
   public static boolean limelightTrackTarget() {
     if(limelightTrackingX() == 0.0){//change
-      if(limelightTrackingY() == 0.0){//change
+      /*if(limelightTrackingY() == 0.0){//change
         return true;
-      }
+      }*/
+      
+      return true;
     }
     return false;
   }

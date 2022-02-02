@@ -1,0 +1,18 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Auto": "Subsystem",
+      "/LiveWindow/BallIntake": "Subsystem",
+      "/LiveWindow/Climbing": "Subsystem",
+      "/LiveWindow/Elevator": "Subsystem",
+      "/LiveWindow/ExampleSubsystem": "Subsystem",
+      "/LiveWindow/RobotDrive": "Subsystem",
+      "/LiveWindow/Shooting": "Subsystem",
+      "/LiveWindow/ShootingRotate": "Subsystem",
+      "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro"
+    }
+  }
+}

@@ -32,14 +32,14 @@ public final class Constants {
         public static final double kSpeed = 0.7;
         public static final int intakePort = 7;
         public static final int shooter = 0;
-        public static final int shootRotate = 8;
+        public static final int shootRotate = 4;
         public static final int hanging = 6;
         public static final int hangingTwo = 9;
-        public static final int elevator = 4;
-        public static final int rearLeftDrive = 2;
-        public static final int frontLeftDrive = 1;
-        public static final int rearRightDrive = 5;
-        public static final int frontRightDrive = 3;
+        public static final int elevator = 8;
+        public static final int rearLeftDrive = 3;
+        public static final int frontLeftDrive = 5;
+        public static final int rearRightDrive = 1;
+        public static final int frontRightDrive = 2;
         /*
         private SpeedController m_rearLeft = new PWMVictorSPX(0);
         private SpeedController m_frontLeft = new PWMVictorSPX(1);

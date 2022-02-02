@@ -32,7 +32,7 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.arcadeDriveSimple(RobotContainer.getLeftStick(), RobotContainer.getRightStickXAxis(), .5);
+    System.out.println(RobotContainer.limelightTrackingX());
   }
 
   // Called once the command ends or is interrupted.

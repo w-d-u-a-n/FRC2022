@@ -5,7 +5,10 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.AutoConstants;
 
 public class ShootingRotate extends SubsystemBase {
@@ -27,9 +30,21 @@ public class ShootingRotate extends SubsystemBase {
     m_Rotator.set(0);
   }
 
+  public void adjustX(){
+    while(RobotContainer.limelightTrackingX() == 0){
+      if(RobotContainer.limelightTrackingX() > 0 ){
+        m_Rotator.set(.1);
+      }
+      if(RobotContainer.limelightTrackingX() < 0){
+        m_Rotator.set(.1);
+      }
+    }
+  }
+
 
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+    SmartDashboard.putNumber("LimelightX", RobotContainer.limelightTrackingX());
   }
 }
