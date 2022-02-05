@@ -3,14 +3,14 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 
 public class Climbing extends SubsystemBase {
   /** Creates a new Climbing. */
-  private PWMTalonSRX m_Climbing1 = new PWMTalonSRX(AutoConstants.hanging); //set port
-  private PWMTalonSRX m_Climbing2 = new PWMTalonSRX(AutoConstants.hangingTwo); //set port
+  private PWMSparkMax m_Climbing1 = new PWMSparkMax(AutoConstants.hanging);
+  private PWMSparkMax m_Climbing2 = new PWMSparkMax(AutoConstants.hangingTwo);
 
   public Climbing() {}
 

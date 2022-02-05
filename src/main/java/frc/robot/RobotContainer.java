@@ -128,6 +128,69 @@ public class RobotContainer {
     return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
   }
 
+  /**
+   * We need to test this and figure out anything logistical errors as well as see if this even works.
+   * Takes in tx, ty, and ta from the limelight and outputs aim_adjust for the shooting rotator.
+   * HC 02/05/2022
+   * @return the constant to adjust the turret left or right
+   */
+  public static double limelightAdjustX() {
+    /**
+     * Once this works we can take in the current robot speed and factor that into our calculations same with limelightAdjustY()
+     */
+    double KpAim = -0.1;
+    double min_aim_command = 0.05;
+    double tx = RobotContainer.limelightTrackingX();
+    double aim_adjust = 0;
+    
+    //TO-DO: Make sure to bind this to an XBox Controller button
+    if (RobotContainer.limelightTrackTarget()) {
+      double heading_error = -1 * tx;
+
+    
+      //AIM_ADJUST
+      if (tx > 1.0) {
+        aim_adjust = KpAim*heading_error - min_aim_command;
+      } else if (tx < 1.0) {
+      //otherwise the robot won’t adjust to these tiny increments due to friction
+        aim_adjust = KpAim*heading_error + min_aim_command;
+      }
+    }
+    return aim_adjust;
+  }
+
+  /**
+   * We need to test this and figure out anything logistical errors as well as see if this even works.
+   * Takes in ty, and ta from the limelight and outputs an angle_adjust for the shooting rotator.
+   * HC 02/05/2022
+   * @return the constant to adjust the angle the turret is aimed
+   */
+  public static double limelightAdjustY() {
+    double KpTrajectory = -0.05; //not sure what to set this at
+    double min_aimAngle_command = 0.05; //what should this be set at
+    final double baseArea = 0.5; //change
+    double angle_adjust = 0;
+    
+    double ty = RobotContainer.limelightTrackingY();
+    double ta = RobotContainer.limelightTrackingA();
+    
+    //TO-DO: Make sure to bind this to an XBox Controller button
+    if (RobotContainer.limelightTrackTarget()) {
+      double trajectory_error = -1 * ty;    
+      //ANGLE_ADJUST - accounts for both difference in target area and y adjustments
+      if (ty > 1.0 ) {
+        angle_adjust = KpTrajectory*trajectory_error - min_aimAngle_command;
+      } else if (ty < 1.0) {
+        angle_adjust = KpTrajectory*trajectory_error + min_aimAngle_command;
+      }
+      if (ta > baseArea ) {
+        angle_adjust += 50 * (ta-baseArea)/baseArea; //arbitrary function 50 might be too much of an angle adjustment
+      } else if (ta < baseArea) {
+        angle_adjust -= 50 * (ta-baseArea)/baseArea;
+      }
+    }
+    return angle_adjust;
+  }
 
 /** HC - 01/12/2022
  * Pseudocode from https://frc-pdr.readthedocs.io/en/latest/control/gyro.html
@@ -141,20 +204,20 @@ public class RobotContainer {
         return True
  * 
  */
-  public static boolean rotateToAngle(double targetAngle){
-    //threshold is subject to change, but represents the accpetable margin of error
-    double threshold = 5;
-    double error = targetAngle - m_gyro.getAngle();
-    if(error > threshold){
-       /**
-        * Add code to adjust motor so that the error is reduced
-        */
+  // public static boolean rotateToAngle(double targetAngle){
+  //   //threshold is subject to change, but represents the accpetable margin of error
+  //   double threshold = 5;
+  //   double error = targetAngle - m_gyro.getAngle();
+  //   if(error > threshold){
+  //      /**
+  //       * Add code to adjust motor so that the error is reduced
+  //       */
       
-       return false;
-    } else {
-      return true;
-    }
-  }
+  //      return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

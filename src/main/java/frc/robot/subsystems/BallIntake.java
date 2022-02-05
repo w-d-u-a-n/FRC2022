@@ -4,14 +4,14 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 
 public class BallIntake extends SubsystemBase {
   /** Creates a new BallIntake. */
-  private PWMTalonSRX m_Intake = new PWMTalonSRX(AutoConstants.intakePort);
-  private PWMTalonSRX m_FixIntake = new PWMTalonSRX(11);
+  private PWMSparkMax m_Intake = new PWMSparkMax(AutoConstants.intakePort);
+  private PWMSparkMax m_FixIntake = new PWMSparkMax(11); //what is this constant - HC 02/05/22
 
   public BallIntake() {}
 

@@ -4,13 +4,13 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
-  private PWMTalonSRX m_Elevator = new PWMTalonSRX(AutoConstants.elevator);//change 0
+  private PWMSparkMax m_Elevator = new PWMSparkMax(AutoConstants.elevator);
   public Elevator() {}
   //RR- methods 1/11/22
   public void moveUp(){

@@ -32,9 +32,11 @@ public class ShootingRotateCommand extends CommandBase {
   @Override
   public void execute() {
     if(RobotContainer.limelightTrackTarget() == false){
-      m_subsystem.move(0);
-      System.out.println ("ShootingRotateCommand execute.");
-
+      m_subsystem.move(0, 0);
+      System.out.println ("ShootingRotateCommand execute - target = false.");
+    } else {
+      m_subsystem.move(RobotContainer.limelightAdjustX(), RobotContainer.limelightAdjustY());
+      System.out.println ("ShootingRotateCommand execute - target = true.");
     }
   }
 

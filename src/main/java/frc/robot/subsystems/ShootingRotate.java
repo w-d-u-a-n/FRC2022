@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,7 +13,8 @@ import frc.robot.Constants.AutoConstants;
 
 public class ShootingRotate extends SubsystemBase {
   /** Creates a new ShootingRotate. */
-  private PWMTalonSRX m_Rotator = new PWMTalonSRX(AutoConstants.shootRotate);//Change for port- RR 1/11/2022
+  private PWMSparkMax m_Rotator = new PWMSparkMax(AutoConstants.shootRotate);
+  private PWMSparkMax m_angleRotator = new PWMSparkMax(AutoConstants.shootAngleRotate);
 
   public ShootingRotate() {}
 
@@ -22,8 +23,9 @@ public class ShootingRotate extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   //Methods written by RR 1/11/2022
-  public void move(double angle){
-    m_Rotator.set(angle);
+  public void move(double aimAngle, double trajectoryAngle){
+    m_Rotator.set(aimAngle);
+    m_angleRotator.set(trajectoryAngle);
   }
 
   public void stop(){

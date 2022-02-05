@@ -9,19 +9,19 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class RobotDrive extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  private PWMVictorSPX m_rearLeft = new PWMVictorSPX(AutoConstants.rearLeftDrive); //change
-  private PWMVictorSPX m_frontLeft = new PWMVictorSPX(AutoConstants.frontLeftDrive);
+  private PWMSparkMax m_rearLeft = new PWMSparkMax(AutoConstants.rearLeftDrive);
+  private PWMSparkMax m_frontLeft = new PWMSparkMax(AutoConstants.frontLeftDrive);
   private MotorControllerGroup m_left = new MotorControllerGroup(m_frontLeft, m_rearLeft);
 
-  private PWMVictorSPX m_rearRight = new PWMVictorSPX(AutoConstants.rearRightDrive);
-  private PWMVictorSPX m_frontRight = new PWMVictorSPX(AutoConstants.frontRightDrive);
+  private PWMSparkMax m_rearRight = new PWMSparkMax(AutoConstants.rearRightDrive);
+  private PWMSparkMax m_frontRight = new PWMSparkMax(AutoConstants.frontRightDrive);
   private MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
 
 
