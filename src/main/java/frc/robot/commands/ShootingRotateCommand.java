@@ -7,6 +7,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.ShootingRotate;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /** An example command that uses an example subsystem. */
 public class ShootingRotateCommand extends CommandBase {
@@ -35,6 +36,8 @@ public class ShootingRotateCommand extends CommandBase {
       m_subsystem.move(0, 0);
       System.out.println ("ShootingRotateCommand execute - target = false.");
     } else {
+      SmartDashboard.putNumber("Turret Rotate X", RobotContainer.limelightAdjustX());
+      SmartDashboard.putNumber("Turret Rotate Y", RobotContainer.limelightAdjustY());
       m_subsystem.move(RobotContainer.limelightAdjustX(), RobotContainer.limelightAdjustY());
       System.out.println ("ShootingRotateCommand execute - target = true.");
     }

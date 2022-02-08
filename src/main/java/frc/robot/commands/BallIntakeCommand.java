@@ -6,9 +6,11 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.BallIntake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /** An example command that uses an example subsystem. */
-public class BallIntakeCommand extends CommandBase {
+public class BallIntakeCommand extends CommandBase{
+  private static boolean commandCalled = false;
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final BallIntake m_subsystem1;
 
@@ -31,13 +33,18 @@ public class BallIntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    commandCalled = true;
     System.out.println("BallIntakeCommand execute.");
+    //HC - I just added a boolean for this command to test shuffleboard.
+    //If this is useful we can do this for the rest of the commands otherwise, we can just delete this.
+    SmartDashboard.putBoolean("BallIntake Command", commandCalled);
     m_subsystem1.ballTake();//rr
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    commandCalled = false;
     System.out.println("BallIntakeCommand end.");
     m_subsystem1.stop();//rr
   }
