@@ -32,7 +32,7 @@ public class BallShootTopCommand extends CommandBase {
   @Override
   public void execute() {
     System.out.println("BallShootTopCommand execute.");
-    m_subsystem.shootTop(RobotContainer.getShootSpeedValue()); //idea: write code in RobotContainer that gets vision value. Rahul Rajaram 1/11/2022 
+    m_subsystem.shootTop(/*RobotContainer.getShootSpeedValue()*/-.55); //idea: write code in RobotContainer that gets vision value. Rahul Rajaram 1/11/2022 
   }
 
   // Called once the command ends or is interrupted.

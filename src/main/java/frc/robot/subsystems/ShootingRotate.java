@@ -14,7 +14,7 @@ import frc.robot.Constants.AutoConstants;
 public class ShootingRotate extends SubsystemBase {
   /** Creates a new ShootingRotate. */
   private PWMSparkMax m_Rotator = new PWMSparkMax(AutoConstants.shootRotate);
-  private PWMSparkMax m_angleRotator = new PWMSparkMax(AutoConstants.shootAngleRotate);
+  //private PWMSparkMax m_angleRotator = new PWMSparkMax(AutoConstants.shootAngleRotate);
 
   public ShootingRotate() {}
 
@@ -25,7 +25,7 @@ public class ShootingRotate extends SubsystemBase {
   //Methods written by RR 1/11/2022
   public void move(double aimAngle, double trajectoryAngle){
     m_Rotator.set(aimAngle);
-    m_angleRotator.set(trajectoryAngle);
+    //m_angleRotator.set(trajectoryAngle);
   }
 
   public void stop(){

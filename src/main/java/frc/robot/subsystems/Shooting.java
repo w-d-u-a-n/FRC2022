@@ -4,13 +4,13 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 
 public class Shooting extends SubsystemBase {
   /** Creates a new Shooting. */
-  private PWMSparkMax m_ShooterTop = new PWMSparkMax(AutoConstants.shooter);
+  private PWMTalonFX m_ShooterTop = new PWMTalonFX(AutoConstants.shooter);
   public Shooting() {}
   //methods written by RR on 1/11/22
   public void shootTop(double strength) {
