@@ -38,7 +38,7 @@ public class ElevatorMoveTopCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.stop();//FZ
+    m_subsystem.stop1();//FZ
     System.out.println ("ElevatorMoveTopCommand end.");
 
   }

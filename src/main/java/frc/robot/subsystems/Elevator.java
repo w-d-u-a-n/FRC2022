@@ -11,6 +11,9 @@ import frc.robot.Constants.AutoConstants;
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   private PWMSparkMax m_Elevator = new PWMSparkMax(AutoConstants.elevator);
+  private PWMSparkMax m_Elevator2 = new PWMSparkMax(AutoConstants.index2);
+  private PWMSparkMax m_Elevator3 = new PWMSparkMax(AutoConstants.index3);
+
   public Elevator() {}
   //RR- methods 1/11/22
   public void moveUp(){
@@ -21,8 +24,30 @@ public class Elevator extends SubsystemBase {
     m_Elevator.set(-.5);
   }
 
-  public void stop(){
+  public void moveUp2(){
+    m_Elevator2.set(.5);
+  }
+
+  public void moveDown2(){
+    m_Elevator2.set(-.5);
+  }
+
+  public void moveUp3(){
+    m_Elevator3.set(-.7);
+  }
+
+
+
+  public void stop1(){
     m_Elevator.set(0);
+  }
+
+  public void stop2(){
+    m_Elevator2.set(0);
+  }
+
+  public void stop3(){
+    m_Elevator3.set(0);
   }
   
   @Override

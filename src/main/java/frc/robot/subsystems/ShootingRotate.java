@@ -14,13 +14,16 @@ import frc.robot.Constants.AutoConstants;
 public class ShootingRotate extends SubsystemBase {
   /** Creates a new ShootingRotate. */
   private PWMSparkMax m_Rotator = new PWMSparkMax(AutoConstants.shootRotate);
-  //private PWMSparkMax m_angleRotator = new PWMSparkMax(AutoConstants.shootAngleRotate);
+  private PWMSparkMax m_angleRotator = new PWMSparkMax(AutoConstants.shootAngleRotate);
 
   public ShootingRotate() {}
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    System.out.println(RobotContainer.limelightTrackingX());
+    SmartDashboard.putNumber("LimelightX", RobotContainer.limelightTrackingX());
+    adjustX();
   }
   //Methods written by RR 1/11/2022
   public void move(double aimAngle, double trajectoryAngle){
@@ -33,20 +36,21 @@ public class ShootingRotate extends SubsystemBase {
   }
 
   public void adjustX(){
-    while(RobotContainer.limelightTrackingX() == 0){
+    while(Math.abs(RobotContainer.limelightTrackingX()) > 3){
       if(RobotContainer.limelightTrackingX() > 0 ){
-        m_Rotator.set(.1);
+        m_Rotator.set(.3);
       }
       if(RobotContainer.limelightTrackingX() < 0){
-        m_Rotator.set(.1);
+        m_Rotator.set(-.3);
       }
     }
+    m_Rotator.set(0);
   }
 
 
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
-    SmartDashboard.putNumber("LimelightX", RobotContainer.limelightTrackingX());
+    
   }
 }

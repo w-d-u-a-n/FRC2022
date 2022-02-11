@@ -4,21 +4,20 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Shooting;
-import frc.robot.RobotContainer;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class BallShootTopCommand extends CommandBase {
+public class IndexTwo extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Shooting m_subsystem;
+  private final Elevator m_subsystem;
 
   /**
-   * Creates a new BallShootTopCommand.
+   * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public BallShootTopCommand(Shooting subsystem) {
+  public IndexTwo(Elevator subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -31,15 +30,13 @@ public class BallShootTopCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("BallShootTopCommand execute.");
-    m_subsystem.shootTop(/*RobotContainer.getShootSpeedValue()*/-.62); //idea: write code in RobotContainer that gets vision value. Rahul Rajaram 1/11/2022 
+    m_subsystem.moveUp2();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("BallShootTopCommand end.");
-    m_subsystem.stop();
+    m_subsystem.stop2();
   }
 
   // Returns true when the command should end.

@@ -32,7 +32,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //RR 1/11/2022
   public static final XboxController m_driverController = new XboxController(1);//change
-  public static final Joystick m_joystick = new Joystick(0);
+  public static final XboxController m_joystick = new XboxController(2);
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Auto m_auto = new Auto();
@@ -53,9 +53,13 @@ public class RobotContainer {
   private final DriveCommand m_DriveCommand = new DriveCommand(m_RobotDrive);
   private final ElevatorMoveBottomCommand m_ElevatorMoveBottomCommand = new ElevatorMoveBottomCommand(m_Elevator);
   private final ShootingRotateCommand m_ShootingRotateCommand = new ShootingRotateCommand(m_ShootingRotate);
+  private final ElevatorMoveTopCommand m_ElevatorMoveTopCommand = new ElevatorMoveTopCommand(m_Elevator);
+  private final IndexTwo m_IndexTwo = new IndexTwo(m_Elevator);
+  private final IndexThree m_IndexThree = new IndexThree(m_Elevator);
 
   public static Encoder leftEncoder = new Encoder(0,1);
   public static Encoder rightEncoder = new Encoder(2, 3);
+  //public static Encoder limelightRotateEncoder = new Encoder(4, 0);
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP); //HC - 01/13/22
   private static PIDController turnController = new PIDController(Constants.AutoConstants.kP, Constants.AutoConstants.kI, Constants.AutoConstants.kD);
@@ -83,7 +87,13 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ElevatorMoveBottomCommand);
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
-    //new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_ShootingRotateCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kB.value).whileHeld(m_ElevatorMoveTopCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kStart.value).whileHeld(m_BallIntakeCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_ElevatorMoveBottomCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_IndexTwo);
+    new JoystickButton(m_driverController, XboxController.Button.kBack.value).whileHeld(m_IndexThree);
+
+
 
   }
 
