@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,7 +27,8 @@ public class ShootingRotate extends SubsystemBase {
     // This method will be called once per scheduler run
     System.out.println(RobotContainer.limelightTrackingX());
     SmartDashboard.putNumber("LimelightX", RobotContainer.limelightTrackingX());
-    adjustX();
+    RobotContainer.switchRotateStatus();
+    adjustX(RobotContainer.getRotateStatus());
   }
   //Methods written by RR 1/11/2022
   public void move(double aimAngle, double trajectoryAngle){
@@ -38,8 +40,8 @@ public class ShootingRotate extends SubsystemBase {
     m_Rotator.set(0);
   }
 
-  public void adjustX(){
-    while(Math.abs(RobotContainer.limelightTrackingX()) > 3){
+  public void adjustX(boolean adjustOn){
+    while(adjustOn && Math.abs(RobotContainer.limelightTrackingX()) > 3){
       if(RobotContainer.limelightTrackingX() > 0 ){
         m_Rotator.set(.3);
       }
