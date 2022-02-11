@@ -31,6 +31,7 @@ public class ElevatorMoveBottomCommand extends CommandBase {
   @Override
   public void execute() {
     m_subsystem.moveDown();//FZ
+    m_subsystem.moveUp3();
     System.out.println ("ElevatorMoveBottomCommand execute.");
 
   }
@@ -39,6 +40,7 @@ public class ElevatorMoveBottomCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_subsystem.stop1();//FZ
+    m_subsystem.stop3();
     System.out.println ("ElevatorMoveBottomCommand end.");
 
   }
