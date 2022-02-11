@@ -4,15 +4,13 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.RobotContainer;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.RobotContainer;
 
 public class RobotDrive extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
@@ -23,6 +21,7 @@ public class RobotDrive extends SubsystemBase {
   private PWMSparkMax m_rearRight = new PWMSparkMax(AutoConstants.rearRightDrive);
   private PWMSparkMax m_frontRight = new PWMSparkMax(AutoConstants.frontRightDrive);
   private MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
+
 
 
 
