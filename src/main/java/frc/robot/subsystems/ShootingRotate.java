@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -15,8 +16,8 @@ import frc.robot.Constants.AutoConstants;
 
 public class ShootingRotate extends SubsystemBase {
   /** Creates a new ShootingRotate. */
-  private PWMSparkMax m_Rotator = new PWMSparkMax(AutoConstants.shootRotate);
-  private PWMSparkMax m_angleRotator = new PWMSparkMax(AutoConstants.shootAngleRotate);
+  private CANSparkMax m_Rotator = new CANSparkMax(AutoConstants.shootRotate, MotorType.kBrushless);
+  private CANSparkMax m_angleRotator = new CANSparkMax(AutoConstants.shootAngleRotate, MotorType.kBrushless);
 
   public ShootingRotate() {}
 
@@ -48,6 +49,8 @@ public class ShootingRotate extends SubsystemBase {
     }
     m_Rotator.set(0);
   }
+
+  
 
 
   @Override

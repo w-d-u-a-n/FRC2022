@@ -55,7 +55,6 @@ public class RobotContainer {
   private final ShootingRotateCommand m_ShootingRotateCommand = new ShootingRotateCommand(m_ShootingRotate);
   private final ElevatorMoveTopCommand m_ElevatorMoveTopCommand = new ElevatorMoveTopCommand(m_Elevator);
   private final IndexTwo m_IndexTwo = new IndexTwo(m_Elevator);
-  private final IndexThree m_IndexThree = new IndexThree(m_Elevator);
 
   public static Encoder leftEncoder = new Encoder(0,1);
   public static Encoder rightEncoder = new Encoder(2, 3);
@@ -91,7 +90,6 @@ public class RobotContainer {
     new JoystickButton(m_driverController, XboxController.Button.kStart.value).whileHeld(m_BallIntakeCommand);
     new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_ElevatorMoveBottomCommand);
     new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_IndexTwo);
-    new JoystickButton(m_driverController, XboxController.Button.kBack.value).whileHeld(m_IndexThree);
 
 
 
