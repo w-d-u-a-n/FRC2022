@@ -55,7 +55,7 @@ public class RobotContainer {
   private final ShootingRotateCommand m_ShootingRotateCommand = new ShootingRotateCommand(m_ShootingRotate);
   private final ElevatorMoveTopCommand m_ElevatorMoveTopCommand = new ElevatorMoveTopCommand(m_Elevator);
   private final IndexTwo m_IndexTwo = new IndexTwo(m_Elevator);
-  private final IndexThree m_IndexThree = new IndexThree(m_Elevator);
+  private static boolean adjustRotateOn = true;
 
   public static Encoder leftEncoder = new Encoder(0,1);
   public static Encoder rightEncoder = new Encoder(2, 3);
@@ -91,17 +91,33 @@ public class RobotContainer {
     new JoystickButton(m_driverController, XboxController.Button.kStart.value).whileHeld(m_BallIntakeCommand);
     new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_ElevatorMoveBottomCommand);
     new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_IndexTwo);
-    new JoystickButton(m_driverController, XboxController.Button.kBack.value).whileHeld(m_IndexThree);
-
-
-
   }
+
+  // public static XboxController getXboxController(){
+  //   return m_driverController;
+  // }
 
   public static XboxController getDriveJoystick(){
     return m_driverController;
     
   }
+
+  /**
+   * Called in the ShootingRotate subsystem to pass in the boolean adjustRotateOn. - HC
+   */
+  public static boolean getRotateStatus(){
+    return adjustRotateOn;
+  }
   
+  /**
+   * Called in the ShootingRotate subsystem under periodic() to check if the rotateOn boolean should be negated - HC
+   * Change this button.
+   */
+  public static void switchRotateStatus(){
+    if(m_driverController.getAButtonPressed()){
+      adjustRotateOn = !adjustRotateOn;
+    }
+  }
 
   public static double limelightTrackingX() {
     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(1);
