@@ -22,6 +22,9 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -31,7 +34,7 @@ import com.kauailabs.navx.frc.AHRS;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //RR 1/11/2022
-  public static final XboxController m_driverController = new XboxController(1);//change
+  public static final XboxController m_driverController = new XboxController(0);//change
   public static final XboxController m_joystick = new XboxController(2);
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -54,7 +57,7 @@ public class RobotContainer {
   private final ElevatorMoveBottomCommand m_ElevatorMoveBottomCommand = new ElevatorMoveBottomCommand(m_Elevator);
   private final ShootingRotateCommand m_ShootingRotateCommand = new ShootingRotateCommand(m_ShootingRotate);
   private final ElevatorMoveTopCommand m_ElevatorMoveTopCommand = new ElevatorMoveTopCommand(m_Elevator);
-  private final IndexTwo m_IndexTwo = new IndexTwo(m_Elevator);
+  private final IndexTwo m_IndexTwo = new IndexTwo(m_Elevator, m_BallIntake);
   private static boolean adjustRotateOn = true;
 
   public static Encoder leftEncoder = new Encoder(0,1);
@@ -64,11 +67,17 @@ public class RobotContainer {
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP); //HC - 01/13/22
   private static PIDController turnController = new PIDController(Constants.AutoConstants.kP, Constants.AutoConstants.kI, Constants.AutoConstants.kD);
 
+  private static DigitalInput ballLimitSwitch = new DigitalInput(5);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     m_DriveCommand.execute();
     configureButtonBindings();
+  }
+
+  public static boolean getBallLimitSwitch(){
+    return ballLimitSwitch.get();
   }
 
   public static double getLeftStick(){

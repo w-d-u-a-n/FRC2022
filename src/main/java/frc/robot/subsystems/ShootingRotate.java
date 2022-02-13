@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -20,6 +21,8 @@ public class ShootingRotate extends SubsystemBase {
   private CANSparkMax m_Rotator = new CANSparkMax(AutoConstants.shootRotate, MotorType.kBrushless);
   private CANSparkMax m_angleRotator = new CANSparkMax(AutoConstants.shootAngleRotate, MotorType.kBrushless);
 
+  private RelativeEncoder m_RotateEncoder = m_Rotator.getEncoder();
+
   public ShootingRotate() {}
 
   @Override
@@ -32,8 +35,7 @@ public class ShootingRotate extends SubsystemBase {
   }
   //Methods written by RR 1/11/2022
   public void move(double aimAngle, double trajectoryAngle){
-    m_Rotator.set(aimAngle);
-    //m_angleRotator.set(trajectoryAngle);
+    m_angleRotator.set(trajectoryAngle);
   }
 
   public void stop(){
@@ -42,11 +44,14 @@ public class ShootingRotate extends SubsystemBase {
 
   public void adjustX(boolean adjustOn){
     while(adjustOn && Math.abs(RobotContainer.limelightTrackingX()) > 3){
-      if(RobotContainer.limelightTrackingX() > 0 ){
-        m_Rotator.set(.3);
+      while(m_RotateEncoder.getPosition() != RobotContainer.limelightAdjustX()){
+        if(RobotContainer.limelightTrackingX() > 0 ){
+          m_Rotator.set(.3);
+        }
+        if(RobotContainer.limelightTrackingX() < 0){
+          m_Rotator.set(-.3);
       }
-      if(RobotContainer.limelightTrackingX() < 0){
-        m_Rotator.set(-.3);
+      
       }
     }
     m_Rotator.set(0);

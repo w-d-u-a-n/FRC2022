@@ -34,8 +34,8 @@ public class RobotDrive extends SubsystemBase {
   private RelativeEncoder m_FRencoder = m_frontRight.getEncoder();
 
   private AHRS gyro = new AHRS(SPI.Port.kMXP);
-  double error, derivative, adjust;
-  int integral, previousError, setpoint = 0;
+  private double error, derivative, adjust;
+  private int integral, previousError, setpoint = 0;
 
 
   public RobotDrive() {}

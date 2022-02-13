@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.RobotContainer;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
@@ -36,6 +37,7 @@ public class Elevator extends SubsystemBase {
     m_Elevator3.set(-.7);
   }
 
+  
 
 
   public void stop1(){

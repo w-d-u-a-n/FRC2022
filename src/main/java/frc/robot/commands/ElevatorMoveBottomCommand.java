@@ -31,7 +31,6 @@ public class ElevatorMoveBottomCommand extends CommandBase {
   @Override
   public void execute() {
     m_subsystem.moveDown();//FZ
-    m_subsystem.moveUp3();
     System.out.println ("ElevatorMoveBottomCommand execute.");
 
   }

@@ -16,7 +16,7 @@ public class BallIntake extends SubsystemBase {
   public BallIntake() {}
 
   public void ballTake(){//intake- RR
-    m_Intake.set(.7);
+    m_Intake.set(.34);
   }
 
   public void ballTakeReverse(){//move wheels out- RR
