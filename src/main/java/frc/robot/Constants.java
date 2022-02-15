@@ -31,12 +31,13 @@ public final class Constants {
         public static final double kDistance = 100;
         public static final double kSpeed = 0.7;
         public static final int intakePort = 9;
-        public static final int shooter = 8;
+        public static final int shooter_right=7;
+        public static final int shooter_left=8;
         public static final int shootRotate = 4;
         public static final int shootAngleRotate = 10;
         public static final int hanging = 11;
         public static final int index2 = 1;
-        public static final int index3 = 7;
+        public static final int index3 = 13;
         public static final int elevator = 2;
         public static final int rearLeftDrive = 3;
         public static final int frontLeftDrive = 0;
@@ -78,5 +79,6 @@ public final class Constants {
         public static final boolean kRightEncoderReversed = false;
 
         public static final double kEncoderDistancePerPulse=5;
+        
     }
 }

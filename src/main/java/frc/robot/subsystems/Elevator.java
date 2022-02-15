@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
@@ -11,7 +14,7 @@ import frc.robot.RobotContainer;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
-  private PWMSparkMax m_Elevator = new PWMSparkMax(AutoConstants.elevator);
+  private CANSparkMax m_Elevator = new CANSparkMax(AutoConstants.elevator, MotorType.kBrushless);
   private PWMSparkMax m_Elevator2 = new PWMSparkMax(AutoConstants.index2);
   private PWMSparkMax m_Elevator3 = new PWMSparkMax(AutoConstants.index3);
 
