@@ -19,9 +19,9 @@ import frc.robot.Constants.AutoConstants;
 public class ShootingRotate extends SubsystemBase {
   /** Creates a new ShootingRotate. */
   private CANSparkMax m_Rotator = new CANSparkMax(AutoConstants.shootRotate, MotorType.kBrushless);
-  private CANSparkMax m_angleRotator = new CANSparkMax(AutoConstants.shootAngleRotate, MotorType.kBrushless);
+  private static CANSparkMax m_angleRotator = new CANSparkMax(AutoConstants.shootAngleRotate, MotorType.kBrushless);
 
-  private RelativeEncoder m_RotateEncoder = m_Rotator.getEncoder();
+  public static RelativeEncoder m_AngleRotateEncoder = m_angleRotator.getEncoder();
 
   public ShootingRotate() {}
 
@@ -32,6 +32,7 @@ public class ShootingRotate extends SubsystemBase {
     SmartDashboard.putNumber("LimelightX", RobotContainer.limelightTrackingX());
     RobotContainer.switchRotateStatus();*/
     move(RobotContainer.getJoystickXAxis(), RobotContainer.getJoystickYAxis());
+    System.out.println("Angle Measurement: " + getZEncoder());
     
   }
   //Methods written by RR 1/11/2022
@@ -41,20 +42,22 @@ public class ShootingRotate extends SubsystemBase {
     
   }
 
+  public double getZEncoder(){
+    return m_AngleRotateEncoder.getPosition();
+  }
+
   public void stop(){
     m_Rotator.set(0);
   }
 
   public void adjustX(){
     while(Math.abs(RobotContainer.limelightTrackingX()) > 3){
-      while(m_RotateEncoder.getPosition() != RobotContainer.limelightAdjustX()){
         if(RobotContainer.limelightTrackingX() > 0 ){
           m_Rotator.set(.3);
         }
         if(RobotContainer.limelightTrackingX() < 0){
           m_Rotator.set(-.3);
-      }
-      
+
       }
     }
     m_Rotator.set(0);

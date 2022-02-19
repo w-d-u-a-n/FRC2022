@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Auto;
 import frc.robot.subsystems.BallIntake;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.RobotDrive;
 import frc.robot.subsystems.Shooting;
 import frc.robot.subsystems.ShootingRotate;
@@ -21,7 +22,8 @@ public class AutoCommand extends CommandBase {
   private final BallIntake intake_subsystem;
   private final Shooting shooting_subsystem;
   private final ShootingRotate rotator_subsystem;
-  private double m_speed, m_angle;
+  private final Elevator elevator_subsystem;
+  private double m_speed;
   private Timer t;
   private int[] seconds;
   private final double endTime = 14.5; //end of Autonomous period and just 0.5s to transition
@@ -32,19 +34,20 @@ public class AutoCommand extends CommandBase {
  * @param i_sub - intake subsystem
  * @param s_sub - shooting subsystem
  * @param r_sub - rotating subsystem
+ * @param e_sub
  * @param speed
  * @param angle
  * @param sec
  *        [time to align from start, shooting time, ball retreival]
  */
-  public AutoCommand(RobotDrive d_sub, BallIntake i_sub, Shooting s_sub, ShootingRotate r_sub, double speed, double angle, int[] sec) {
+  public AutoCommand(RobotDrive d_sub, BallIntake i_sub, Shooting s_sub, ShootingRotate r_sub, Elevator e_sub, double speed, int[] sec) {
     //HC 01/18/22
     drive_subsystem = d_sub;
     intake_subsystem = i_sub;
     shooting_subsystem = s_sub;
     rotator_subsystem = r_sub;
+    elevator_subsystem = e_sub;
     m_speed = speed;
-    m_angle = angle;
     seconds = sec;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive_subsystem);
@@ -53,6 +56,8 @@ public class AutoCommand extends CommandBase {
     addRequirements(rotator_subsystem);
     addRequirements(drive_subsystem);
   }
+
+  
 
   // Called when the command is initially scheduled.
   @Override
@@ -66,9 +71,11 @@ public class AutoCommand extends CommandBase {
   public void execute() {
     System.out.println("Autocommand execute.");
     //Align robot - HC
-    while(t.get() < seconds[0]) {
-      drive_subsystem.arcadeDriveSimple(m_speed, m_angle, .5);
+    while(RobotDrive.getDistanceStraight() < 100) {
+      drive_subsystem.arcadeDriveSimple(-m_speed, 0-RobotDrive.PID(), .5);
     }
+    shooting_subsystem.shootTop(.5);
+    
     //Shoot - HC
     while(t.get() > seconds[0] && t.get() < seconds[1]) {
       shooting_subsystem.shootTop(0.5); //TO-DO: Update strength value
@@ -76,7 +83,7 @@ public class AutoCommand extends CommandBase {
     //Retreive ball drive - HC
     
     while(t.get() > seconds[1] && t.get() < seconds[2]) {
-      drive_subsystem.arcadeDriveSimple(m_speed, m_angle, .5);
+      drive_subsystem.arcadeDriveSimple(m_speed, 90-RobotDrive.PID(), .5);
     }
     //Retreive ball intake - HC
     while(t.get() > seconds[2] && t.get() < endTime) {

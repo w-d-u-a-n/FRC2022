@@ -20,22 +20,22 @@ import frc.robot.Constants;
 
 public class RobotDrive extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  private CANSparkMax m_rearLeft = new CANSparkMax(AutoConstants.rearLeftDrive, MotorType.kBrushless);
-  private CANSparkMax m_frontLeft = new CANSparkMax(AutoConstants.frontLeftDrive, MotorType.kBrushless);
+  private static CANSparkMax m_rearLeft = new CANSparkMax(AutoConstants.rearLeftDrive, MotorType.kBrushless);
+  private static CANSparkMax m_frontLeft = new CANSparkMax(AutoConstants.frontLeftDrive, MotorType.kBrushless);
   private MotorControllerGroup m_left = new MotorControllerGroup(m_frontLeft, m_rearLeft);
 
-  private CANSparkMax m_rearRight = new CANSparkMax(AutoConstants.rearRightDrive, MotorType.kBrushless);
-  private CANSparkMax m_frontRight = new CANSparkMax(AutoConstants.frontRightDrive, MotorType.kBrushless);
+  private static CANSparkMax m_rearRight = new CANSparkMax(AutoConstants.rearRightDrive, MotorType.kBrushless);
+  private static CANSparkMax m_frontRight = new CANSparkMax(AutoConstants.frontRightDrive, MotorType.kBrushless);
   private MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
 
-  private RelativeEncoder m_RLencoder = m_rearLeft.getEncoder();
-  private RelativeEncoder m_FLencoder = m_frontLeft.getEncoder();
-  private RelativeEncoder m_RRencoder = m_rearRight.getEncoder();
-  private RelativeEncoder m_FRencoder = m_frontRight.getEncoder();
+  private static RelativeEncoder m_RLencoder = m_rearLeft.getEncoder();
+  private static RelativeEncoder m_FLencoder = m_frontLeft.getEncoder();
+  private static RelativeEncoder m_RRencoder = m_rearRight.getEncoder();
+  private static RelativeEncoder m_FRencoder = m_frontRight.getEncoder();
 
-  private AHRS gyro = new AHRS(SPI.Port.kMXP);
-  private double error, derivative, adjust;
-  private int integral, previousError, setpoint = 0;
+  private static AHRS gyro = new AHRS(SPI.Port.kMXP);
+  private static double error, derivative, adjust;
+  private static int integral, previousError, setpoint = 0;
 
 
   public RobotDrive() {}
@@ -45,7 +45,7 @@ public class RobotDrive extends SubsystemBase {
     double drivePower = -1*Math.pow(leftStickPos, 3);
     double leftDrive = drivePower + rightStickPos*0.5; //*0.5
     double rightDrive  = drivePower - rightStickPos*0.5; //*0.5
-    System.out.println("hello" + rightStickPos);
+
 
     leftDrive = leftDrive*maxSpeed;
     rightDrive = rightDrive*maxSpeed;
@@ -55,18 +55,23 @@ public class RobotDrive extends SubsystemBase {
 
   }
 
-  public double PID(){
+  public static double PID(){
     error = RobotContainer.getLeftStickX() - gyro.getAngle();
     integral += (error*.02);
-    derivative = (error-this.previousError)/.02;
+    derivative = (error-previousError)/.02;
     adjust = AutoConstants.kP * error + AutoConstants.kI*integral + AutoConstants.kD*derivative;
     return adjust;
+  }
+
+  public static double getDistanceStraight(){
+    return (m_FLencoder.getPosition() + m_FRencoder.getPosition()+m_RLencoder.getPosition()+m_RRencoder.getPosition())/4;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     this.arcadeDriveSimple(RobotContainer.getLeftStickX(), RobotContainer.getLeftStickY()-PID(), .3);
+
   }
 
   @Override

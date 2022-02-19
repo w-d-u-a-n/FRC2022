@@ -25,7 +25,7 @@ public class Shooting extends SubsystemBase {
   //methods written by RR on 1/11/22
   public void shootTop(double strength) {
     m_ShooterTopRight.set(-strength);
-    m_ShooterTopLeft.set(strength);
+    m_ShooterTopLeft.set(-strength);
     /*double tS  = strength;
     double current = 0;
     while(current < tS){
@@ -57,11 +57,6 @@ public class Shooting extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     
-    if (RobotContainer.m_joystick.getRawButton(2)) {
-      shootTop(.98);
-    } else {
-      stop();
-    }
   }
 
   @Override

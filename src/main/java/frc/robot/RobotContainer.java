@@ -37,8 +37,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //RR 1/11/2022
   public static final XboxController m_driverController = new XboxController(0);//change
-  public static final PS4Controller m_controller = new PS4Controller(0);
-  public static final XboxController m_joystick = new XboxController(2);
+  public static final PS4Controller m_controller = new PS4Controller(3);
+  public static final Joystick m_joystick = new Joystick(2);
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Auto m_auto = new Auto();
@@ -49,9 +49,9 @@ public class RobotContainer {
   private final Shooting m_Shooting = new Shooting();
   private final ShootingRotate m_ShootingRotate = new ShootingRotate();
   
-
+  private int[] timing = new int[]{0, 6, 12};
   private final ExampleCommand m_exampleCommand = new ExampleCommand(m_exampleSubsystem);
-  //private final AutoCommand m_AutoCommand = new AutoCommand(m_auto);
+  private final AutoCommand m_AutoCommand = new AutoCommand(m_RobotDrive, m_BallIntake, m_Shooting, m_ShootingRotate, m_Elevator, .5, timing);
   private final BallIntakeCommand m_BallIntakeCommand = new BallIntakeCommand(m_BallIntake);
   private final BallShootTopCommand m_BallShootTopCommand = new BallShootTopCommand(m_Shooting);
   private final ClimbingHangCommand m_ClimbingHangCommand = new ClimbingHangCommand(m_Climbing);
@@ -79,33 +79,42 @@ public class RobotContainer {
     // Configure the button bindings
     m_DriveCommand.execute();
     configureButtonBindings();
+    (ShootingRotate.m_AngleRotateEncoder).setPosition(0);
   }
 
   public static boolean getBallLimitSwitch(){
     return ballLimitSwitch.get();
   }
 
-  public static double getJoystickXAxis () {
-    return m_joystick.getRawAxis(1);
-  }
-  public static double getJoystickYAxis () {
-    return m_joystick.getRawAxis(2);
-  }
-  // public static double getLeftStick(){
-  //   return m_driverController.getRawAxis(1);
+  // public static double getJoystickXAxis () {
+  //   return m_controller.getRightX();
   // }
-  // public static double getRightStickXAxis(){
-  //   return m_driverController.getRawAxis(4);
+  // public static double getJoystickYAxis () {
+  //   return m_controller.getRightY();
   // }
+  public static double getLeftStickY(){
+    return m_driverController.getRawAxis(0);
+  }
+  public static double getLeftStickX(){
+    return m_driverController.getRawAxis(1);
+  }
+  public static double getJoystickXAxis(){
+    return m_driverController.getRawAxis(2);
+  }
+  public static double  getJoystickYAxis(){
+    return m_driverController.getRawAxis(3);
+  }
+  
+  
 
 
-public static double getLeftStickY(){
-   return m_controller.getLeftY();
- }
+// public static double getLeftStickY(){
+//    return m_controller.getLeftY();
+//  }
 
- public static double getLeftStickX(){
-   return m_controller.getLeftX();
- }
+//  public static double getLeftStickX(){
+//    return m_controller.getLeftX();
+//  }
 
 
   /**
@@ -114,25 +123,35 @@ public static double getLeftStickY(){
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  // private void configureButtonBindings() {
+  /* private void configureButtonBindings() {
   //   new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ElevatorMoveBottomCommand);
   //   new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
   //   new JoystickButton(m_driverController, XboxController.Button.kB.value).whileHeld(m_ElevatorMoveTopCommand);
   //   new JoystickButton(m_driverController, XboxController.Button.kStart.value).whileHeld(m_BallIntakeCommand);
   //   new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_ElevatorMoveBottomCommand);
   //   new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_IndexTwo);
-  // }
+   }*/
 
   private void configureButtonBindings() {
-    //new JoystickButton(m_driverController, PS4Controller.Button.kTriangle.value).whileHeld(m_ElevatorMoveBottomCommand);
-    new JoystickButton(m_driverController, PS4Controller.Button.kCircle.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
-    new JoystickButton(m_driverController, PS4Controller.Button.kR2.value).whileHeld(m_ElevatorMoveTopCommand);
-    new JoystickButton(m_driverController, PS4Controller.Button.kL2.value).whileHeld(m_BallIntakeCommand);
-    new JoystickButton(m_driverController, PS4Controller.Button.kL1.value).whileHeld(m_moveIndexThreeCommand);
-    new JoystickButton(m_driverController, PS4Controller.Button.kR1.value).whileHeld(m_BallOutCommand);
-
-
+    new JoystickButton(m_driverController, XboxController.Button.kB.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
+    new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ElevatorMoveTopCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallIntakeCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_ShootingRotateCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_moveIndexThreeCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_BallOutCommand);
   }
+
+
+  //  private void configureButtonBindings() {
+  //    //new JoystickButton(m_driverController, PS4Controller.Button.kTriangle.value).whileHeld(m_ElevatorMoveBottomCommand);
+  //    new JoystickButton(m_driverController, PS4Controller.Button.kCircle.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
+  //    new JoystickButton(m_driverController, PS4Controller.Button.kR2.value).whileHeld(m_ElevatorMoveTopCommand);
+  //    new JoystickButton(m_driverController, PS4Controller.Button.kL2.value).whileHeld(m_BallIntakeCommand);
+  //    new JoystickButton(m_driverController, PS4Controller.Button.kL1.value).whileHeld(m_moveIndexThreeCommand);
+  //    new JoystickButton(m_driverController, PS4Controller.Button.kR1.value).whileHeld(m_BallOutCommand);
+
+
+  // }
 
   // public static XboxController getXboxController(){
   //   return m_driverController;
@@ -154,11 +173,7 @@ public static double getLeftStickY(){
    * Called in the ShootingRotate subsystem under periodic() to check if the rotateOn boolean should be negated - HC
    * Change this button.
    */
-  public static void switchRotateStatus(){
-    if(m_driverController.getAButtonPressed()){
-      adjustRotateOn = !adjustRotateOn;
-    }
-  }
+  
 
   public static double limelightTrackingX() {
     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(1);
@@ -293,7 +308,7 @@ public static double getLeftStickY(){
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return m_AutoCommand;
   }
 
 

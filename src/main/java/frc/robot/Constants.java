@@ -31,10 +31,10 @@ public final class Constants {
         public static final double kDistance = 100;
         public static final double kSpeed = 0.7;
         public static final int intakePort = 5;
-        public static final int shooter_right=7;
-        public static final int shooter_left=8;
+        public static final int shooter_right=8;
+        public static final int shooter_left=7;
         public static final int shootRotate = 3;
-        public static final int shootAngleRotate = 0;
+        public static final int shootAngleRotate = 15;
         public static final int hanging = 11;
         public static final int index2 = 10;
         public static final int index3 = 13;
