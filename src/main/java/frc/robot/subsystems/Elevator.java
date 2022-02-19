@@ -37,6 +37,9 @@ public class Elevator extends SubsystemBase {
     m_Elevator3.set(-.7);
   }
 
+  public void moveDown3(){
+    m_Elevator3.set(.7);
+  }
   
 
 

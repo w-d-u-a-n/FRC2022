@@ -65,7 +65,7 @@ public class RobotDrive extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    this.arcadeDriveSimple(RobotContainer.getLeftStick(), RobotContainer.getRightStickXAxis()-PID(), .3);
+    this.arcadeDriveSimple(RobotContainer.getLeftStickX(), RobotContainer.getLeftStickY()-PID(), .3);
   }
 
   @Override
