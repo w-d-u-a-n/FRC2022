@@ -4,14 +4,16 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 
 public class BallIntake extends SubsystemBase {
   /** Creates a new BallIntake. */
-  private PWMSparkMax m_Intake = new PWMSparkMax(AutoConstants.intakePort);
-  private PWMSparkMax m_FixIntake = new PWMSparkMax(11); //what is this constant - HC 02/05/22
+  private CANSparkMax m_Intake = new CANSparkMax(AutoConstants.intakePort, MotorType.kBrushless);
 
   public BallIntake() {}
 
@@ -25,11 +27,7 @@ public class BallIntake extends SubsystemBase {
   
   public void stop(){//stop- RR
     m_Intake.set(0);
-    m_FixIntake.set(0);
-  }
 
-  public void pushIntake(){
-    m_FixIntake.set(.1);
   }
 
   @Override

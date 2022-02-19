@@ -14,7 +14,8 @@ import frc.robot.Constants.AutoConstants;
 
 public class Shooting extends SubsystemBase {
   /** Creates a new Shooting. */
-  private TalonFX m_ShooterTop = new TalonFX(AutoConstants.shooter);
+  private PWMTalonFX m_ShooterTopRight = new PWMTalonFX(AutoConstants.shooter_right);
+  private PWMTalonFX m_ShooterTopLeft = new PWMTalonFX(AutoConstants.shooter_left);
   private double error, derivative, adjust;
   private int integral, previousError = 0;
   private double setpoint = 0.0;
@@ -22,27 +23,32 @@ public class Shooting extends SubsystemBase {
   public Shooting() {}
   //methods written by RR on 1/11/22
   public void shootTop(double strength) {
-    double tS  = strength;
+    m_ShooterTopRight.set(-strength);
+    m_ShooterTopLeft.set(strength);
+    /*double tS  = strength;
     double current = 0;
     while(current < tS){
       current += 0.005;
-      m_ShooterTop.set(ControlMode.PercentOutput, current);
-    }
-    m_ShooterTop.set(ControlMode.PercentOutput, strength + PID(strength));
+      m_ShooterTopRight.set(-current);
+      m_ShooterTopLeft.set(current);
+    }*/
+    
     
   }
 
-  public double PID(double q){
+  /*public double PID(double q){
     setpoint = q;
     error = setpoint - m_ShooterTop.getSelectedSensorVelocity();
     integral += (error*.02);
     derivative = (error-this.previousError)/.02;
     adjust = AutoConstants.kP * error + AutoConstants.kI*integral + AutoConstants.kD*derivative;
     return adjust;
-  }
+  }*/
 
   public void stop() {
-    m_ShooterTop.set(ControlMode.PercentOutput, 0);
+    m_ShooterTopRight.set(0);
+    m_ShooterTopLeft.set(0);
+
 
   }
 

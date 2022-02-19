@@ -290,4 +290,8 @@ public static double getLeftStickY(){
     return null;
   }
 
+  public static double getLeftStickXAxis() {
+    return m_driverController.getRawAxis(0);
+  }
+
 }
