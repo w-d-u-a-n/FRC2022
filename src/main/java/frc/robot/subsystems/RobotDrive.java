@@ -56,7 +56,7 @@ public class RobotDrive extends SubsystemBase {
   }
 
   public double PID(){
-    error = RobotContainer.getRightStickXAxis() - gyro.getAngle();
+    error = RobotContainer.getLeftStickX() - gyro.getAngle();
     integral += (error*.02);
     derivative = (error-this.previousError)/.02;
     adjust = AutoConstants.kP * error + AutoConstants.kI*integral + AutoConstants.kD*derivative;
@@ -66,7 +66,7 @@ public class RobotDrive extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    this.arcadeDriveSimple(RobotContainer.getLeftStick(), RobotContainer.getLeftStickXAxis(), .3);
+    this.arcadeDriveSimple(RobotContainer.getLeftStickX(), RobotContainer.getLeftStickY()-PID(), .3);
   }
 
   @Override
