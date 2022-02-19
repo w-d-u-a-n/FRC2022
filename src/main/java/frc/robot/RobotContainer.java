@@ -14,6 +14,7 @@ import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.simulation.JoystickSim;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -86,6 +87,16 @@ public class RobotContainer {
   public static double getRightStickXAxis(){
     return m_driverController.getRawAxis(4);
   }
+  public static double getLeftStickXAxis() {
+    return m_driverController.getRawAxis(0);
+  }
+
+  public static double getJoystickXAxis () {
+    return m_joystick.getRawAxis(1);
+  }
+  public static double getJoystickYAxis () {
+    return m_joystick.getRawAxis(2);
+  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -101,7 +112,6 @@ public class RobotContainer {
     new JoystickButton(m_driverController, XboxController.Button.kA.value).whenPressed(m_ShootingRotateCommand);
     new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_ElevatorMoveBottomCommand);
     new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_IndexTwo);
-
 
 
   }
@@ -268,8 +278,5 @@ public class RobotContainer {
     return null;
   }
 
-  public static double getLeftStickXAxis() {
-    return m_driverController.getRawAxis(0);
-  }
 
 }

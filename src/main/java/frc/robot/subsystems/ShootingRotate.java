@@ -31,11 +31,13 @@ public class ShootingRotate extends SubsystemBase {
     /*System.out.println(RobotContainer.limelightTrackingX());
     SmartDashboard.putNumber("LimelightX", RobotContainer.limelightTrackingX());
     RobotContainer.switchRotateStatus();*/
+    move(RobotContainer.getJoystickXAxis(), RobotContainer.getJoystickYAxis());
     
   }
   //Methods written by RR 1/11/2022
   public void move(double aimAngle, double trajectoryAngle){
     m_angleRotator.set(trajectoryAngle);
+    m_Rotator.set(aimAngle);
     
   }
 

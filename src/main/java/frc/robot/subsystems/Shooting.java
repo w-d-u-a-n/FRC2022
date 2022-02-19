@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
+import frc.robot.RobotContainer;
 import frc.robot.Constants.AutoConstants;
 
 public class Shooting extends SubsystemBase {
@@ -55,6 +56,12 @@ public class Shooting extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
+    if (RobotContainer.m_joystick.getRawButton(2)) {
+      shootTop(.98);
+    } else {
+      stop();
+    }
   }
 
   @Override
