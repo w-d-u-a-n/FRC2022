@@ -32,6 +32,8 @@ public class ShootingRotateCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_subsystem.adjustX();
+    /*
     if(RobotContainer.limelightTrackTarget() == false){
       m_subsystem.move(0, 0);
       System.out.println ("ShootingRotateCommand execute - target = false.");
@@ -40,7 +42,7 @@ public class ShootingRotateCommand extends CommandBase {
       SmartDashboard.putNumber("Turret Rotate Y", RobotContainer.limelightAdjustY());
       m_subsystem.move(RobotContainer.limelightAdjustX(), RobotContainer.limelightAdjustY());
       System.out.println ("ShootingRotateCommand execute - target = true.");
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.

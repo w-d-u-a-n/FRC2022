@@ -28,22 +28,23 @@ public class ShootingRotate extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    System.out.println(RobotContainer.limelightTrackingX());
+    /*System.out.println(RobotContainer.limelightTrackingX());
     SmartDashboard.putNumber("LimelightX", RobotContainer.limelightTrackingX());
-    RobotContainer.switchRotateStatus();
-    adjustX(RobotContainer.getRotateStatus());
+    RobotContainer.switchRotateStatus();*/
+    
   }
   //Methods written by RR 1/11/2022
   public void move(double aimAngle, double trajectoryAngle){
     m_angleRotator.set(trajectoryAngle);
+    
   }
 
   public void stop(){
     m_Rotator.set(0);
   }
 
-  public void adjustX(boolean adjustOn){
-    while(adjustOn && Math.abs(RobotContainer.limelightTrackingX()) > 3){
+  public void adjustX(){
+    while(Math.abs(RobotContainer.limelightTrackingX()) > 3){
       while(m_RotateEncoder.getPosition() != RobotContainer.limelightAdjustX()){
         if(RobotContainer.limelightTrackingX() > 0 ){
           m_Rotator.set(.3);

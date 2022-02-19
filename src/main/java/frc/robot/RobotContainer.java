@@ -35,7 +35,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //RR 1/11/2022
   public static final XboxController m_driverController = new XboxController(0);//change
-  public static final XboxController m_joystick = new XboxController(2);
+  public static final XboxController m_joystick = new XboxController(0);
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Auto m_auto = new Auto();
@@ -98,6 +98,7 @@ public class RobotContainer {
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
     new JoystickButton(m_driverController, XboxController.Button.kB.value).whileHeld(m_ElevatorMoveTopCommand);
     new JoystickButton(m_driverController, XboxController.Button.kStart.value).whileHeld(m_BallIntakeCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kA.value).whenPressed(m_ShootingRotateCommand);
     new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_ElevatorMoveBottomCommand);
     new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_IndexTwo);
 
@@ -265,6 +266,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return null;
+  }
+
+  public static double getLeftStickXAxis() {
+    return m_driverController.getRawAxis(0);
   }
 
 }
