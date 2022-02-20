@@ -80,6 +80,11 @@ public class RobotContainer {
     m_DriveCommand.execute();
     configureButtonBindings();
     (ShootingRotate.m_AngleRotateEncoder).setPosition(0);
+    (RobotDrive.m_RLencoder).setPosition(0);
+    (RobotDrive.m_RRencoder).setPosition(0);
+    (RobotDrive.m_FLencoder).setPosition(0);
+    (RobotDrive.m_FRencoder).setPosition(0);
+
   }
 
   public static boolean getBallLimitSwitch(){
@@ -247,6 +252,8 @@ public class RobotContainer {
    * HC 02/05/2022
    * @return the constant to adjust the angle the turret is aimed
    */
+
+
   public static double limelightAdjustY() {
     double KpTrajectory = -0.05; //not sure what to set this at
     double min_aimAngle_command = 0.05; //what should this be set at

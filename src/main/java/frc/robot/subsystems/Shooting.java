@@ -13,6 +13,8 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.AutoConstants;
 
+
+
 public class Shooting extends SubsystemBase {
   /** Creates a new Shooting. */
   private PWMTalonFX m_ShooterTopRight = new PWMTalonFX(AutoConstants.shooter_right);
