@@ -55,6 +55,11 @@ public class RobotDrive extends SubsystemBase {
 
   }
 
+  public static double gyroAngle(){
+    return gyro.getAngle();
+  }
+
+
   public static double PID(){
     error = RobotContainer.getLeftStickX() - gyro.getAngle();
     integral += (error*.02);
@@ -73,6 +78,10 @@ public class RobotDrive extends SubsystemBase {
 
   public static double getTurnLeft(){
     return (m_FLencoder.getPosition()+m_RLencoder.getPosition())/2;
+  }
+
+  public static double getSpeed(){
+    return (m_FLencoder.getVelocity() + m_FRencoder.getVelocity()+m_RLencoder.getVelocity()+m_RRencoder.getVelocity())/4;
   }
 
   @Override

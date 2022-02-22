@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Auto;
 import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.Elevator;
@@ -64,6 +65,7 @@ public class AutoCommand extends CommandBase {
   public void initialize() {
     Timer t = new Timer();
     t.start();
+    RobotContainer.startingAngle = RobotContainer.limelightTrackingX();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
