@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Auto;
 import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.Elevator;
@@ -64,6 +65,7 @@ public class AutoCommand extends CommandBase {
   public void initialize() {
     Timer t = new Timer();
     t.start();
+    RobotContainer.startingAngle = RobotContainer.limelightTrackingX();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -76,6 +78,34 @@ public class AutoCommand extends CommandBase {
     }
     shooting_subsystem.shootTop(.5);
     
+    while(Elevator.m_E1encoder.getPosition() < 100){
+      elevator_subsystem.moveUp();
+    }
+    shooting_subsystem.shootTop(0);
+    
+    while(RobotDrive.getTurnRight() < 200){
+      drive_subsystem.arcadeDriveSimple(-m_speed, -.5-RobotDrive.PID(), .5);
+    }
+    intake_subsystem.ballTake();
+
+    while(RobotDrive.getDistanceStraight() < 300){
+      drive_subsystem.arcadeDriveSimple(m_speed, 0-RobotDrive.PID(), .5);
+    }
+
+    intake_subsystem.stop();
+
+    while(RobotDrive.getTurnLeft() < 400){
+      drive_subsystem.arcadeDriveSimple(m_speed, .5-RobotDrive.PID(), .5);
+    }
+
+    ShootingRotate.adjustX();
+
+    shooting_subsystem.shootTop(.5);
+
+    while(Elevator.m_E1encoder.getPosition() < 100){
+      elevator_subsystem.moveUp();
+    }
+    /*
     //Shoot - HC
     while(t.get() > seconds[0] && t.get() < seconds[1]) {
       shooting_subsystem.shootTop(0.5); //TO-DO: Update strength value
@@ -88,7 +118,7 @@ public class AutoCommand extends CommandBase {
     //Retreive ball intake - HC
     while(t.get() > seconds[2] && t.get() < endTime) {
       intake_subsystem.ballTake();
-    }
+    }*/
 
   }
 

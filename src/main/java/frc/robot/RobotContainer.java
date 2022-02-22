@@ -65,6 +65,7 @@ public class RobotContainer {
   private final BallOutCommand m_BallOutCommand = new BallOutCommand(m_Elevator);
   private static boolean adjustRotateOn = true;
 
+  public static double startingAngle = 0.0;
   public static Encoder leftEncoder = new Encoder(0,1);
   public static Encoder rightEncoder = new Encoder(2, 3);
   //public static Encoder limelightRotateEncoder = new Encoder(4, 0);
@@ -80,11 +81,33 @@ public class RobotContainer {
     m_DriveCommand.execute();
     configureButtonBindings();
     (ShootingRotate.m_AngleRotateEncoder).setPosition(0);
+    (RobotDrive.m_RLencoder).setPosition(0);
+    (RobotDrive.m_RRencoder).setPosition(0);
+    (RobotDrive.m_FLencoder).setPosition(0);
+    (RobotDrive.m_FRencoder).setPosition(0);
+    startingAngle = limelightTrackingX();
+    m_gyro.calibrate();
+
   }
+
+  public double additionalX(){
+    double current_angle = startingAngle + m_gyro.getAngle();
+    double xVelocity = Math.cos(current_angle)*m_RobotDrive.getSpeed();
+    return xVelocity * .02; //change - idk how to do this
+  }
+
+  public double additionalY(){
+    double current_angle = startingAngle + m_gyro.getAngle();
+    double yVelocity = Math.sin(current_angle)*m_RobotDrive.getSpeed();
+    return yVelocity * .02; //change - idk how to do this
+  }
+
 
   public static boolean getBallLimitSwitch(){
     return ballLimitSwitch.get();
   }
+
+  
 
   // public static double getJoystickXAxis () {
   //   return m_controller.getRightX();
@@ -247,6 +270,8 @@ public class RobotContainer {
    * HC 02/05/2022
    * @return the constant to adjust the angle the turret is aimed
    */
+
+
   public static double limelightAdjustY() {
     double KpTrajectory = -0.05; //not sure what to set this at
     double min_aimAngle_command = 0.05; //what should this be set at

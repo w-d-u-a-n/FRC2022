@@ -28,10 +28,10 @@ public class RobotDrive extends SubsystemBase {
   private static CANSparkMax m_frontRight = new CANSparkMax(AutoConstants.frontRightDrive, MotorType.kBrushless);
   private MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
 
-  private static RelativeEncoder m_RLencoder = m_rearLeft.getEncoder();
-  private static RelativeEncoder m_FLencoder = m_frontLeft.getEncoder();
-  private static RelativeEncoder m_RRencoder = m_rearRight.getEncoder();
-  private static RelativeEncoder m_FRencoder = m_frontRight.getEncoder();
+  public static RelativeEncoder m_RLencoder = m_rearLeft.getEncoder();
+  public static RelativeEncoder m_FLencoder = m_frontLeft.getEncoder();
+  public static RelativeEncoder m_RRencoder = m_rearRight.getEncoder();
+  public static RelativeEncoder m_FRencoder = m_frontRight.getEncoder();
 
   private static AHRS gyro = new AHRS(SPI.Port.kMXP);
   private static double error, derivative, adjust;
@@ -55,6 +55,11 @@ public class RobotDrive extends SubsystemBase {
 
   }
 
+  public static double gyroAngle(){
+    return gyro.getAngle();
+  }
+
+
   public static double PID(){
     error = RobotContainer.getLeftStickX() - gyro.getAngle();
     integral += (error*.02);
@@ -65,6 +70,18 @@ public class RobotDrive extends SubsystemBase {
 
   public static double getDistanceStraight(){
     return (m_FLencoder.getPosition() + m_FRencoder.getPosition()+m_RLencoder.getPosition()+m_RRencoder.getPosition())/4;
+  }
+
+  public static double getTurnRight(){
+    return (m_FRencoder.getPosition()+m_RRencoder.getPosition())/2;
+  }
+
+  public static double getTurnLeft(){
+    return (m_FLencoder.getPosition()+m_RLencoder.getPosition())/2;
+  }
+
+  public static double getSpeed(){
+    return (m_FLencoder.getVelocity() + m_FRencoder.getVelocity()+m_RLencoder.getVelocity()+m_RRencoder.getVelocity())/4;
   }
 
   @Override
