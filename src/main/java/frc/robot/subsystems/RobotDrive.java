@@ -33,7 +33,7 @@ public class RobotDrive extends SubsystemBase {
   public static RelativeEncoder m_RRencoder = m_rearRight.getEncoder();
   public static RelativeEncoder m_FRencoder = m_frontRight.getEncoder();
 
-  private static AHRS gyro = new AHRS(SPI.Port.kMXP);
+  public static AHRS gyro = new AHRS(SPI.Port.kMXP);
   private static double error, derivative, adjust;
   private static int integral, previousError, setpoint = 0;
 
@@ -61,26 +61,43 @@ public class RobotDrive extends SubsystemBase {
 
 
   public static double PID(){
-    error = RobotContainer.getLeftStickX() - gyro.getAngle();
+    error = 0 - gyro.getAngle();
     integral += (error*.02);
     derivative = (error-previousError)/.02;
     adjust = AutoConstants.kP * error + AutoConstants.kI*integral + AutoConstants.kD*derivative;
     return adjust;
   }
 
+  public static double getLength(double ticks){
+    return 3* ticks/(42.0)*6.0*Math.PI;
+
+  }
+
+  public void resetEncoders(){
+    (RobotDrive.m_RLencoder).setPosition(0);
+    (RobotDrive.m_RRencoder).setPosition(0);
+    (RobotDrive.m_FLencoder).setPosition(0);
+    (RobotDrive.m_FRencoder).setPosition(0);
+  }
+
   public static double getDistanceStraight(){
-    return (m_FLencoder.getPosition() + m_FRencoder.getPosition()+m_RLencoder.getPosition()+m_RRencoder.getPosition())/4;
+    // ticks - 42
+    // gearbox 12.75:1
+    // 6 in diameter - 12 pi circumference
+    // in inches
+    return getLength((Math.abs(m_FLencoder.getPosition()) + Math.abs(m_FRencoder.getPosition())+Math.abs(m_RLencoder.getPosition())+Math.abs(m_RRencoder.getPosition()))/4.0);
   }
 
-  public static double getTurnRight(){
-    return (m_FRencoder.getPosition()+m_RRencoder.getPosition())/2;
+  public double getAngle(double ticks){
+    return getLength(ticks)/(24.819*Math.PI)*360.0;
   }
 
-  public static double getTurnLeft(){
-    return (m_FLencoder.getPosition()+m_RLencoder.getPosition())/2;
+  public double getTurnAmount(){
+    return getAngle((Math.abs(m_FRencoder.getPosition())+Math.abs(m_RRencoder.getPosition())+Math.abs(m_RLencoder.getPosition())+Math.abs(m_RRencoder.getPosition()))/4.0);
   }
 
-  public static double getSpeed(){
+
+  public double getSpeed(){
     return (m_FLencoder.getVelocity() + m_FRencoder.getVelocity()+m_RLencoder.getVelocity()+m_RRencoder.getVelocity())/4;
   }
 
@@ -88,6 +105,8 @@ public class RobotDrive extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     this.arcadeDriveSimple(RobotContainer.getLeftStickX(), RobotContainer.getLeftStickY(), .3);
+    System.out.println("Distance " + RobotDrive.getDistanceStraight());
+    getDistanceStraight();
 
   }
 

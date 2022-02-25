@@ -26,7 +26,7 @@ public class Shooting extends SubsystemBase {
   public Shooting() {}
   //methods written by RR on 1/11/22
   public void shootTop(double strength) {
-    m_ShooterTopRight.set(-strength);
+    m_ShooterTopRight.set(strength);
     m_ShooterTopLeft.set(-strength);
     /*double tS  = strength;
     double current = 0;

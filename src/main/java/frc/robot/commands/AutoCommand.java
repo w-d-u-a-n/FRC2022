@@ -63,7 +63,7 @@ public class AutoCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Timer t = new Timer();
+     t = new Timer();
     t.start();
     RobotContainer.startingAngle = RobotContainer.limelightTrackingX();
   }
@@ -73,38 +73,66 @@ public class AutoCommand extends CommandBase {
   public void execute() {
     System.out.println("Autocommand execute.");
     //Align robot - HC
-    while(RobotDrive.getDistanceStraight() < 100) {
+    //RobotDrive.gyro.zeroYaw();
+    //drive_subsystem.resetEncoders();
+
+    // if(RobotDrive.getDistanceStraight() >= 1) {
+    //   drive_subsystem.arcadeDriveSimple(0, 0, 0);
+    // } else {
+    //   drive_subsystem.arcadeDriveSimple(-m_speed, 0-RobotDrive.PID(), .5);
+    // }
+
+  while(RobotDrive.getDistanceStraight() < 12){
       drive_subsystem.arcadeDriveSimple(-m_speed, 0-RobotDrive.PID(), .5);
     }
+    drive_subsystem.arcadeDriveSimple(0, 0, 0);
+
+
+
     shooting_subsystem.shootTop(.5);
     
-    while(Elevator.m_E1encoder.getPosition() < 100){
+    while(Elevator.m_E1encoder.getPosition() < 2){
       elevator_subsystem.moveUp();
+      elevator_subsystem.moveUp2();
+      elevator_subsystem.moveUp3();
     }
+    elevator_subsystem.stop1();
+    elevator_subsystem.stop2();
+    elevator_subsystem.stop3();
     shooting_subsystem.shootTop(0);
-    
-    while(RobotDrive.getTurnRight() < 200){
-      drive_subsystem.arcadeDriveSimple(-m_speed, -.5-RobotDrive.PID(), .5);
-    }
-    intake_subsystem.ballTake();
 
-    while(RobotDrive.getDistanceStraight() < 300){
+
+    drive_subsystem.resetEncoders();
+    RobotDrive.gyro.zeroYaw();
+    
+    while(drive_subsystem.getTurnAmount() < 70){
+      drive_subsystem.arcadeDriveSimple(-m_speed, -.5, .5);
+    }
+    drive_subsystem.arcadeDriveSimple(0, 0, 0);
+
+    
+
+    RobotDrive.gyro.zeroYaw();
+    drive_subsystem.resetEncoders();
+    while(RobotDrive.getDistanceStraight() < 10){
       drive_subsystem.arcadeDriveSimple(m_speed, 0-RobotDrive.PID(), .5);
     }
+    drive_subsystem.arcadeDriveSimple(0, 0, 0);
 
-    intake_subsystem.stop();
-
-    while(RobotDrive.getTurnLeft() < 400){
+    RobotDrive.gyro.zeroYaw();
+    drive_subsystem.resetEncoders();
+    while(drive_subsystem.getTurnAmount() < .5){ //turning left
       drive_subsystem.arcadeDriveSimple(m_speed, .5-RobotDrive.PID(), .5);
     }
+    drive_subsystem.arcadeDriveSimple(0, 0, 0);
 
-    ShootingRotate.adjustX();
 
-    shooting_subsystem.shootTop(.5);
+    shooting_subsystem.shootTop(.93);
+    intake_subsystem.ballTake();
+    elevator_subsystem.moveUp();
+    elevator_subsystem.moveUp2();
+    elevator_subsystem.moveUp3();
 
-    while(Elevator.m_E1encoder.getPosition() < 100){
-      elevator_subsystem.moveUp();
-    }
     /*
     //Shoot - HC
     while(t.get() > seconds[0] && t.get() < seconds[1]) {
@@ -131,6 +159,6 @@ public class AutoCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return t.get() > endTime; //HC
+    return t.get() > 15; //HC
   }
 }
