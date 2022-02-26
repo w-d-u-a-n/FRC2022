@@ -43,6 +43,8 @@ public final class Constants {
         public static final int frontLeftDrive = 1;
         public static final int rearRightDrive = 6;
         public static final int frontRightDrive = 4;
+        public static final int ballLimitSwitchPort = 0; //change
+        public static final int hoodLimitSwitchPort = 5;
         /*
         private SpeedController m_rearLeft = new PWMVictorSPX(0);
         private SpeedController m_frontLeft = new PWMVictorSPX(1);

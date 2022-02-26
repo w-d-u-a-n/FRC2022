@@ -23,6 +23,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.PS4Controller;
+import frc.robot.Constants.AutoConstants;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
@@ -71,9 +72,10 @@ public class RobotContainer {
   //public static Encoder limelightRotateEncoder = new Encoder(4, 0);
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP); //HC - 01/13/22
-  private static PIDController turnController = new PIDController(Constants.AutoConstants.kP, Constants.AutoConstants.kI, Constants.AutoConstants.kD);
+  private static PIDController turnController = new PIDController(AutoConstants.kP, AutoConstants.kI, AutoConstants.kD);
 
-  private static DigitalInput ballLimitSwitch = new DigitalInput(5);
+  private static DigitalInput ballLimitSwitch = new DigitalInput(AutoConstants.ballLimitSwitchPort);
+  private static DigitalInput hoodLimitSwitch = new DigitalInput(AutoConstants.hoodLimitSwitchPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -107,7 +109,9 @@ public class RobotContainer {
     return ballLimitSwitch.get();
   }
 
-  
+  public static boolean getHoodLimitSwitch(){
+    return hoodLimitSwitch.get();
+  }
 
   // public static double getJoystickXAxis () {
   //   return m_controller.getRightX();

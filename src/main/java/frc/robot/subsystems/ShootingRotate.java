@@ -43,7 +43,9 @@ public class ShootingRotate extends SubsystemBase {
   }
   //Methods written by RR 1/11/2022
   public void move(double aimAngle, double trajectoryAngle){
-    m_angleRotator.set(trajectoryAngle);
+    if(!(RobotContainer.getHoodLimitSwitch() && trajectoryAngle < 0)){
+      m_angleRotator.set(trajectoryAngle);
+    }
     /*if(Math.abs(trajectoryAngle) < .1){
       m_angleRotator.set(0);
     }
