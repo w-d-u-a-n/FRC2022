@@ -43,9 +43,13 @@ public class ShootingRotate extends SubsystemBase {
   }
   //Methods written by RR 1/11/2022
   public void move(double aimAngle, double trajectoryAngle){
-    if(!(RobotContainer.getHoodLimitSwitch() && trajectoryAngle < 0)){
+   if(!(RobotContainer.getHoodLimitSwitch() /*&& trajectoryAngle < 0.5*/)){
       m_angleRotator.set(trajectoryAngle);
-    }
+    } else if(trajectoryAngle < 0 ){
+      m_angleRotator.set(trajectoryAngle);
+    } else {
+    ShootingRotate.m_AngleRotateEncoder.setPosition(0);
+      }
     /*if(Math.abs(trajectoryAngle) < .1){
       m_angleRotator.set(0);
     }
@@ -57,7 +61,7 @@ public class ShootingRotate extends SubsystemBase {
       m_Rotator.set(0);
     }
     else{
-      m_Rotator.set(aimAngle);
+      m_Rotator.set(aimAngle*1.1);
     }
     
     
@@ -81,10 +85,14 @@ public class ShootingRotate extends SubsystemBase {
     }
     currentPos = newPos;
 
+    if(RobotContainer.getHoodLimitSwitch()){
+      (ShootingRotate.m_AngleRotateEncoder).setPosition(0);
+      }
   }
 
   public void stop(){
     m_Rotator.set(0);
+
   }
 
   public static void adjustX(){

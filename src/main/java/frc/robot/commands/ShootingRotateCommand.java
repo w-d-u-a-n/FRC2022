@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 public class ShootingRotateCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ShootingRotate m_subsystem;
+  public static boolean rotateStatus = false;
+  public static double encoderAngle = 0;
 
   /**
    * Creates a new ShootingRotateCommand.
@@ -32,6 +34,7 @@ public class ShootingRotateCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    rotateStatus = true;
     m_subsystem.adjustX();
     /*
     if(RobotContainer.limelightTrackTarget() == false){
@@ -49,6 +52,10 @@ public class ShootingRotateCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_subsystem.stop();
+    rotateStatus = false;
+    if(RobotContainer.getHoodLimitSwitch()){
+    (ShootingRotate.m_AngleRotateEncoder).setPosition(0);
+    }
     System.out.println ("ShootingRotateCommand end.");
   }
 

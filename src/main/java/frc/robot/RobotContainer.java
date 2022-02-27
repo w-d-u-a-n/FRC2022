@@ -74,7 +74,7 @@ public class RobotContainer {
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP); //HC - 01/13/22
   private static PIDController turnController = new PIDController(AutoConstants.kP, AutoConstants.kI, AutoConstants.kD);
 
-  private static DigitalInput ballLimitSwitch = new DigitalInput(AutoConstants.ballLimitSwitchPort);
+  // private static DigitalInput ballLimitSwitch = new DigitalInput(AutoConstants.ballLimitSwitchPort);
   private static DigitalInput hoodLimitSwitch = new DigitalInput(AutoConstants.hoodLimitSwitchPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -105,9 +105,9 @@ public class RobotContainer {
   }
 
 
-  public static boolean getBallLimitSwitch(){
-    return ballLimitSwitch.get();
-  }
+  // public static boolean getBallLimitSwitch(){
+  //   return ballLimitSwitch.get();
+  // }
 
   public static boolean getHoodLimitSwitch(){
     return hoodLimitSwitch.get();

@@ -37,12 +37,10 @@ public class IndexTwo extends CommandBase {
     m_subsystem.moveUp2();
     m_subsystem.moveUp3();
     m_subsystem_1.ballTake();
-    if(!RobotContainer.getBallLimitSwitch()){
+    //if(!RobotContainer.getBallLimitSwitch()){
       m_subsystem.moveUp();
     }
-  }
-
-  // Called once the command ends or is interrupted.
+   //ds or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_subsystem.stop2();

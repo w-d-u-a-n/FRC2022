@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.RobotContainer;
 import frc.robot.Constants;
+import frc.robot.commands.*;
 
 public class RobotDrive extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
@@ -42,22 +43,25 @@ public class RobotDrive extends SubsystemBase {
 
   public void arcadeDriveSimple(double leftStickPos, double rightStickPos, double maxSpeed){
 
+    // if(Math.abs(leftStickPos) < 0.05 && Math.abs(rightStickPos) < 0.05){
+    //     double speed = 0.2;
+    //     while(speed > 0){
+    //       m_left.set(speed);
+    //       m_left.set(speed);
+    //       speed -= 0.02;
+    //     }
+
+    //   }
     double drivePower = -1*Math.pow(leftStickPos, 3);
     double leftDrive = drivePower + rightStickPos*0.5; //*0.5
-    double rightDrive  = drivePower - rightStickPos*0.5; //*0.5
-
-
+    double rightDrive  = drivePower - rightStickPos*0.5;
     leftDrive = leftDrive*maxSpeed;
     rightDrive = rightDrive*maxSpeed;
 
+    if(!ShootingRotateCommand.rotateStatus){
     m_left.set(leftDrive);
-    m_right.set(-rightDrive);
-
-  }
-
-  public static double gyroAngle(){
-    return gyro.getAngle();
-  }
+    m_right.set(-rightDrive);}
+    }
 
 
   public static double PID(){
@@ -104,8 +108,8 @@ public class RobotDrive extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    this.arcadeDriveSimple(RobotContainer.getLeftStickX(), RobotContainer.getLeftStickY(), .3);
-    System.out.println("Distance " + RobotDrive.getDistanceStraight());
+    this.arcadeDriveSimple(RobotContainer.getLeftStickX(), RobotContainer.getLeftStickY(), .5);
+    //System.out.println("Distance " + RobotDrive.getDistanceStraight());
     getDistanceStraight();
 
   }
