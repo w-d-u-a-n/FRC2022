@@ -60,7 +60,9 @@ public class RobotDrive extends SubsystemBase {
 
     if(!ShootingRotateCommand.rotateStatus){
     m_left.set(leftDrive);
-    m_right.set(-rightDrive);}
+    m_right.set(-rightDrive);
+    //ShootingRotate.adjustX();
+    }
     }
 
 
