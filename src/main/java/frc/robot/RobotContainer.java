@@ -303,6 +303,26 @@ public class RobotContainer {
     return angle_adjust;
   }
 
+  public static double hoodAngle(double distance){
+    final double const1 = 259.9685;
+    final double const2 = -79.16438;
+    final double const3 = 36.48913;
+    final double exp1 = 52.96317;
+    final double exp2 = 0.01752133;
+    return const1 - (const2 + const1)/Math.pow(1 + Math.pow((distance/const3), exp1), exp2);
+  }
+  public static double speed(double distance){
+    final double m = 0.00084;
+    final double b = 0.527;
+    return m * distance + b;
+  }
+
+  public static double distance(double ty){
+    double distance = 0;
+    //add some equation here later
+    return distance;
+  }
+
 /** HC - 01/12/2022
  * Pseudocode from https://frc-pdr.readthedocs.io/en/latest/control/gyro.html
  * function rotateToAngle(targetAngle):
