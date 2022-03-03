@@ -81,57 +81,73 @@ public class AutoCommand extends CommandBase {
     // } else {
     //   drive_subsystem.arcadeDriveSimple(-m_speed, 0-RobotDrive.PID(), .5);
     // }
+  //   ShootingRotate.adjustX();
+  //     while(t.get() < 3){
+  //   shooting_subsystem.shootTop(.5692);
+  //     }
+  //   while(t.get() < 4){
+  //     //elevator_subsystem.moveUp();
+  //     elevator_subsystem.moveUp2();
+  //     elevator_subsystem.moveUp3();
+  //   }
+  //   //elevator_subsystem.stop1();
+  //   elevator_subsystem.stop2();
+  //   elevator_subsystem.stop3();
+  //   shooting_subsystem.shootTop(0);
+  
+  // while(RobotDrive.getDistanceStraight() < 75){
 
-  while(RobotDrive.getDistanceStraight() < 12){
-      drive_subsystem.arcadeDriveSimple(-m_speed, 0-RobotDrive.PID(), .5);
-    }
-    drive_subsystem.arcadeDriveSimple(0, 0, 0);
+  //     drive_subsystem.arcadeDriveSimple(-m_speed, 0-RobotDrive.PID(), -1);
+  //   }
+  //   drive_subsystem.arcadeDriveSimple(0, 0, 0);
+  while(t.get() < 10) {
+  drive_subsystem.arcadeDriveSimple(-m_speed, -0.5, -0.5);
+}
+drive_subsystem.arcadeDriveSimple(0, 0, 0);
 
-
-
-    shooting_subsystem.shootTop(.5);
+  //   shooting_subsystem.shootTop(.5);
     
-    while(Elevator.m_E1encoder.getPosition() < 2){
-      elevator_subsystem.moveUp();
-      elevator_subsystem.moveUp2();
-      elevator_subsystem.moveUp3();
-    }
-    elevator_subsystem.stop1();
-    elevator_subsystem.stop2();
-    elevator_subsystem.stop3();
-    shooting_subsystem.shootTop(0);
+  //   while(Elevator.m_E1encoder.getPosition() < 2){
+  //     elevator_subsystem.moveUp();
+  //     elevator_subsystem.moveUp2();
+  //     elevator_subsystem.moveUp3();
+  //   }
+  //   elevator_subsystem.stop1();
+  //   elevator_subsystem.stop2();
+  //   elevator_subsystem.stop3();
+  //   shooting_subsystem.shootTop(0);
 
 
-    drive_subsystem.resetEncoders();
-    RobotDrive.gyro.zeroYaw();
+  //   drive_subsystem.resetEncoders();
+  //   RobotDrive.gyro.zeroYaw();
     
-    while(drive_subsystem.getTurnAmount() < 70){
-      drive_subsystem.arcadeDriveSimple(-m_speed, -.5, .5);
-    }
-    drive_subsystem.arcadeDriveSimple(0, 0, 0);
+  //   while(drive_subsystem.getTurnAmount() < 70){
+  //     drive_subsystem.arcadeDriveSimple(-m_speed, -.5, .5);
+  //   }
+  //   drive_subsystem.arcadeDriveSimple(0, 0, 0);
 
     
 
-    RobotDrive.gyro.zeroYaw();
-    drive_subsystem.resetEncoders();
-    while(RobotDrive.getDistanceStraight() < 10){
-      drive_subsystem.arcadeDriveSimple(m_speed, 0-RobotDrive.PID(), .5);
-    }
-    drive_subsystem.arcadeDriveSimple(0, 0, 0);
+  //   RobotDrive.gyro.zeroYaw();
+  //   drive_subsystem.resetEncoders();
+  //   while(RobotDrive.getDistanceStraight() < 10){
+  //     drive_subsystem.arcadeDriveSimple(m_speed, 0-RobotDrive.PID(), .5);
+  //   }
+  //   drive_subsystem.arcadeDriveSimple(0, 0, 0);
 
-    RobotDrive.gyro.zeroYaw();
-    drive_subsystem.resetEncoders();
-    while(drive_subsystem.getTurnAmount() < .5){ //turning left
-      drive_subsystem.arcadeDriveSimple(m_speed, .5-RobotDrive.PID(), .5);
-    }
-    drive_subsystem.arcadeDriveSimple(0, 0, 0);
+  //   RobotDrive.gyro.zeroYaw();
+  //   drive_subsystem.resetEncoders();
+  //   while(drive_subsystem.getTurnAmount() < .5){ //turning left
+  //     drive_subsystem.arcadeDriveSimple(m_speed, .5-RobotDrive.PID(), .5);
+  //   }
+  //   drive_subsystem.arcadeDriveSimple(0, 0, 0);
 
 
-    shooting_subsystem.shootTop(.93);
-    intake_subsystem.ballTake();
-    elevator_subsystem.moveUp();
-    elevator_subsystem.moveUp2();
-    elevator_subsystem.moveUp3();
+  //   shooting_subsystem.shootTop(.93);
+  //   intake_subsystem.ballTake();
+  //   elevator_subsystem.moveUp();
+  //   elevator_subsystem.moveUp2();
+  //   elevator_subsystem.moveUp3();
 
     /*
     //Shoot - HC
