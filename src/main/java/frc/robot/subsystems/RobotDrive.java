@@ -65,11 +65,22 @@ public class RobotDrive extends SubsystemBase {
     //ShootingRotate.adjustX();
     }
 
+    //TEST THIS LATER
     // while(Math.abs(m_left.get()-leftDrive) < 0.1){
     //   if(m_left.get() < leftDrive){
-    //     m_left.set()
+    //     m_left.set(m_left.get() + 0.1);
+    //   } else if(m_left.get() > leftDrive){
+    //     m_left.set(m_left.get() - 0.1);
+    //   }
+    //   double rightSpeed = -1*m_right.get();
+    //   if(rightSpeed < rightDrive){
+    //     m_right.set(-1*(rightSpeed + 0.1));
+    //   } else if(rightSpeed > rightDrive){
+    //     m_right.set(-1*(m_right.get() - 0.1));
     //   }
     // }
+    // m_left.set(leftDrive);
+    // m_right.set(-rightDrive);
 
     }
 
