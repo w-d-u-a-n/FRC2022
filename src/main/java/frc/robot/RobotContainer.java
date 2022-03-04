@@ -82,7 +82,7 @@ public class RobotContainer {
     // Configure the button bindings
     m_DriveCommand.execute();
     configureButtonBindings();
-    (ShootingRotate.m_AngleRotateEncoder).setPosition(0);
+    //(ShootingRotate.m_AngleRotateEncoder).setPosition(0);
     (RobotDrive.m_RLencoder).setPosition(0);
     (RobotDrive.m_RRencoder).setPosition(0);
     (RobotDrive.m_FLencoder).setPosition(0);
@@ -303,7 +303,7 @@ public class RobotContainer {
     return angle_adjust;
   }
 
-  public static double hoodAngle(double distance){
+  public static double calcHoodAngle(double distance){
     final double const1 = 259.9685;
     final double const2 = -79.16438;
     final double const3 = 36.48913;
@@ -311,13 +311,13 @@ public class RobotContainer {
     final double exp2 = 0.01752133;
     return const1 - (const2 + const1)/Math.pow(1 + Math.pow((distance/const3), exp1), exp2);
   }
-  public static double speed(double distance){
+  public static double calcSpeed(double distance){
     final double m = 0.00084;
-    final double b = 0.527;
+    final double b = 0.502;
     return m * distance + b;
   }
 
-  public static double distance(double ty){
+  public static double calcDistance(double ty){
     double distance = 0;
     //add some equation here later
     return distance;

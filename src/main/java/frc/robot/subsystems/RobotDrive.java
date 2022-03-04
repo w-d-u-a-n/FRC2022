@@ -61,8 +61,16 @@ public class RobotDrive extends SubsystemBase {
     if(!ShootingRotateCommand.rotateStatus){
     m_left.set(leftDrive);
     m_right.set(-rightDrive);
+    System.out.println("Drive distance: " + getDistanceStraight());
     //ShootingRotate.adjustX();
     }
+
+    // while(Math.abs(m_left.get()-leftDrive) < 0.1){
+    //   if(m_left.get() < leftDrive){
+    //     m_left.set()
+    //   }
+    // }
+
     }
 
 
