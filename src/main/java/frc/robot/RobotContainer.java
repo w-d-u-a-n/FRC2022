@@ -303,6 +303,11 @@ public class RobotContainer {
     return angle_adjust;
   }
 
+  /**
+   * Uses the asymmetric sigmoid w/ quadratic weighting or whatever :/
+   * @param distance
+   * @return hood angle and speed
+   */
   public static double calcHoodAngle(double distance){
     final double const1 = 259.9685;
     final double const2 = -79.16438;
@@ -317,10 +322,27 @@ public class RobotContainer {
     return m * distance + b;
   }
 
+  /**
+  * Assumes only hood angle is to be changed and speed stays constant
+  * @param distance
+  * @return hood angle
+  */
+  // public static double calcHoodAngle2(double distance){
+  //   final double const1 = 175.8389;
+  //   final double const2 = 0.0097;
+  //   final double const3 = 0.6214;
+  //   final double const4 = 60.4654;
+  //   // r^2 = 0.8141
+  //   return const1 * Math.sin((const2 * distance - const3)*180/Math.PI) + const4;
+  // }
+
   public static double calcDistance(double ty){
-    double distance = 0;
-    //add some equation here later
-    return distance;
+    final double a1 = 69;
+    final double a2 = 0; //change and calculate using ty
+    final double h1 = 29.5;
+    final double h2 = 104;
+
+    return (h2-h1) / Math.tan(180*(a1+a2)/Math.PI);
   }
 
 /** HC - 01/12/2022
