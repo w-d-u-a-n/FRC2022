@@ -43,7 +43,7 @@ public class ShootingRotate extends SubsystemBase {
   }
   //Methods written by RR 1/11/2022
   public void move(double aimAngle, double trajectoryAngle){
-   if(!(RobotContainer.getHoodLimitSwitch() && Math.abs(trajectoryAngle)>0.05/*&& trajectoryAngle < 0.5*/)){
+   if(!(RobotContainer.getHoodLimitSwitch() /*&& trajectoryAngle < 0.5*/)){
       m_angleRotator.set(trajectoryAngle);
     } else if(trajectoryAngle < 0 ){
       m_angleRotator.set(trajectoryAngle);
@@ -108,6 +108,22 @@ public class ShootingRotate extends SubsystemBase {
     m_Rotator.set(0);
   }
 
+  /**
+   *  method to adjust the hood to a given angle, assuming the relativee ecnoder is 0 at the limit switch.
+   * @param angle - angle we want to adjust to
+   */
+  public static void adjustHood(double angle){
+    int direction = 1;
+    if(ShootingRotate.m_AngleRotateEncoder.getPosition() > angle){
+      direction = -1;
+    }
+    while (Math.abs(ShootingRotate.m_AngleRotateEncoder.getPosition()) < (angle + 10)){
+      //I'm too lazy to write a PID loop so let's hope that by the time the motor stops 10 degrees before, when it stops
+      // spinning it will reach 
+      m_angleRotator.set(direction * .3);
+    }
+    m_angleRotator.set(0);
+  }
   
 
 
