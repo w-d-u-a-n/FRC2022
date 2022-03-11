@@ -95,7 +95,7 @@ public class ShootingRotate extends SubsystemBase {
 
   }
 
-  public static void adjustX(){
+  public void adjustX(){
     while(Math.abs(RobotContainer.limelightTrackingX()) > 3){
         if(RobotContainer.limelightTrackingX() > 0 ){
           m_Rotator.set(.3);
@@ -112,20 +112,20 @@ public class ShootingRotate extends SubsystemBase {
    *  method to adjust the hood to a given angle, assuming the relativee ecnoder is 0 at the limit switch.
    * @param angle - angle we want to adjust to
    */
-  public static void adjustHood(double angle){
-    int direction = 1;
-    if(ShootingRotate.m_AngleRotateEncoder.getPosition() > angle){
-      direction = -1;
-    }
-    while (Math.abs(ShootingRotate.m_AngleRotateEncoder.getPosition()) < (angle + 10)){
+  public void adjustHood(){
+    double angle = RobotContainer.calcHoodAngle();
+    final double speed = 0.3;
+    while (Math.abs(ShootingRotate.m_AngleRotateEncoder.getPosition()-angle) > 10){
       //I'm too lazy to write a PID loop so let's hope that by the time the motor stops 10 degrees before, when it stops
       // spinning it will reach 
-      m_angleRotator.set(direction * .3);
+      if(ShootingRotate.m_AngleRotateEncoder.getPosition() > angle){
+        m_angleRotator.set(-1*speed);
+      } else{
+        m_angleRotator.set(speed);
+      }
     }
     m_angleRotator.set(0);
   }
-  
-
 
   @Override
   public void simulationPeriodic() {
