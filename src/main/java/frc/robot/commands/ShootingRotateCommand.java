@@ -36,8 +36,7 @@ public class ShootingRotateCommand extends CommandBase {
   public void execute() {
     rotateStatus = true;
     m_subsystem.adjustX();
-    double targetAngle = RobotContainer.calcHoodAngle2(RobotContainer.calcDistance(RobotContainer.limelightTrackingY()));
-    m_subsystem.adjustHood(targetAngle);
+    m_subsystem.adjustHood();
     /*
     if(RobotContainer.limelightTrackTarget() == false){
       m_subsystem.move(0, 0);
