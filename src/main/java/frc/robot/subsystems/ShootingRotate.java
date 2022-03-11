@@ -56,13 +56,14 @@ public class ShootingRotate extends SubsystemBase {
     else{
       m_angleRotator.set(trajectoryAngle);
     }*/
+    m_Rotator.set(aimAngle);
     
-    if(Math.abs(aimAngle) < .1){
+    /*if(Math.abs(aimAngle) < .1){
       m_Rotator.set(0);
     }
     else{
       m_Rotator.set(aimAngle*1.1);
-    }
+    }*/
     
     
     
@@ -117,7 +118,7 @@ public class ShootingRotate extends SubsystemBase {
     if(ShootingRotate.m_AngleRotateEncoder.getPosition() > angle){
       direction = -1;
     }
-    while (Math.abs(ShootingRotate.m_AngleRotateEncoder.getPosition()) < (angle + 10)){
+    while (Math.abs(ShootingRotate.m_AngleRotateEncoder.getPosition()-angle) > 10){
       //I'm too lazy to write a PID loop so let's hope that by the time the motor stops 10 degrees before, when it stops
       // spinning it will reach 
       m_angleRotator.set(direction * .3);

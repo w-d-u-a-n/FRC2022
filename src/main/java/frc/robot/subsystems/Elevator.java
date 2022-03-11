@@ -17,7 +17,7 @@ public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
 
   private static CANSparkMax m_Elevator = new CANSparkMax(AutoConstants.elevator, MotorType.kBrushless);
-  private CANSparkMax m_Elevator2 = new CANSparkMax(AutoConstants.index2, MotorType.kBrushless);
+  private CANSparkMax m_Elevator2 = new CANSparkMax(AutoConstants.index2, MotorType.kBrushed);
   private CANSparkMax m_Elevator3 = new CANSparkMax(AutoConstants.index3, MotorType.kBrushless); //
   public static RelativeEncoder m_E1encoder = m_Elevator.getEncoder();
 

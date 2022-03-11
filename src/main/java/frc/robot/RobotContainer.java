@@ -39,7 +39,7 @@ public class RobotContainer {
   //RR 1/11/2022
   public static final XboxController m_driverController = new XboxController(0);//change
   public static final PS4Controller m_controller = new PS4Controller(3);
-  public static final Joystick m_joystick = new Joystick(2);
+  public static final Joystick m_joystick = new Joystick(1);
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Auto m_auto = new Auto();
@@ -161,11 +161,11 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     new JoystickButton(m_driverController, XboxController.Button.kB.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
-    new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ElevatorMoveTopCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_ElevatorMoveTopCommand);
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallIntakeCommand);
     new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_ShootingRotateCommand);
-    new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_moveIndexThreeCommand);
-    new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_BallOutCommand);
+    //new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_moveIndexThreeCommand);
+    //new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_BallOutCommand);
   }
 
 
@@ -203,11 +203,13 @@ public class RobotContainer {
   
 
   public static double limelightTrackingX() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(1);
+    System.out.println(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(3));
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(3);
   }
 
   public static double limelightTrackingY() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(1);
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(3);
   }
 
   public static double limelightTrackingA() {
@@ -327,22 +329,21 @@ public class RobotContainer {
   * @param distance
   * @return hood angle
   */
-  // public static double calcHoodAngle2(double distance){
-  //   final double const1 = 175.8389;
-  //   final double const2 = 0.0097;
-  //   final double const3 = 0.6214;
-  //   final double const4 = 60.4654;
-  //   // r^2 = 0.8141
-  //   return const1 * Math.sin((const2 * distance - const3)*180/Math.PI) + const4;
-  // }
+  public static double calcHoodAngle2(double distance){
+    final double const1 = 175.8389;
+    final double const2 = 0.0097;
+    final double const3 = 0.6214;
+    final double const4 = 60.4654;
+    // r^2 = 0.8141
+    return const1 * Math.sin((const2 * distance - const3)*180/Math.PI) + const4;
+  }
 
   public static double calcDistance(double ty){
-    final double a1 = 69;
-    final double a2 = 0; //change and calculate using ty
+    final double a1 = 37;
     final double h1 = 29.5;
     final double h2 = 104;
 
-    return (h2-h1) / Math.tan(180*(a1+a2)/Math.PI);
+    return (h2-h1) / Math.tan((a1+ty)*Math.PI/180);
   }
 
 /** HC - 01/12/2022
