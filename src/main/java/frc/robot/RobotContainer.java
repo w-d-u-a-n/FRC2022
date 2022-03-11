@@ -305,10 +305,10 @@ public class RobotContainer {
 
   /**
    * Uses the asymmetric sigmoid w/ quadratic weighting or whatever :/
-   * @param distance
    * @return hood angle and speed
    */
-  public static double calcHoodAngle(double distance){
+  public static double calcHoodAngle(){
+    double distance = calcDistance(limelightTrackingY());
     final double const1 = 259.9685;
     final double const2 = -79.16438;
     final double const3 = 36.48913;
@@ -316,7 +316,8 @@ public class RobotContainer {
     final double exp2 = 0.01752133;
     return const1 - (const2 + const1)/Math.pow(1 + Math.pow((distance/const3), exp1), exp2);
   }
-  public static double calcSpeed(double distance){
+  public static double calcSpeed(){
+    double distance = calcDistance(limelightTrackingY());
     final double m = 0.00084;
     final double b = 0.502;
     return m * distance + b;
@@ -327,7 +328,8 @@ public class RobotContainer {
   * @param distance
   * @return hood angle
   */
-  // public static double calcHoodAngle2(double distance){
+  // public static double calcHoodAngle2(){
+  //   double distance = calcDistance(limelightTrackingY());
   //   final double const1 = 175.8389;
   //   final double const2 = 0.0097;
   //   final double const3 = 0.6214;
