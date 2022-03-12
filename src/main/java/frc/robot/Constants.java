@@ -35,7 +35,7 @@ public final class Constants {
         public static final int shooter_left=7;
         public static final int shootRotate = 3;
         public static final int shootAngleRotate = 15;
-        public static final int hanging = 11;
+        public static final int hanging = 0;
         public static final int index2 = 10;
         public static final int index3 = 13;
         public static final int elevator = 14;

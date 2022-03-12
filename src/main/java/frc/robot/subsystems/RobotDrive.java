@@ -4,11 +4,14 @@
 
 package frc.robot.subsystems;
 
+import java.sql.Time;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -61,7 +64,7 @@ public class RobotDrive extends SubsystemBase {
     if(!ShootingRotateCommand.rotateStatus){
     m_left.set(leftDrive);
     m_right.set(-rightDrive);
-    System.out.println("Drive distance: " + getDistanceStraight());
+    System.out.println("Drive Angle value: " + getTurnAmount());
     //ShootingRotate.adjustX();
     }
 
@@ -79,8 +82,8 @@ public class RobotDrive extends SubsystemBase {
     //     m_right.set(-1*(m_right.get() - 0.1));
     //   }
     // }
-    // m_left.set(leftDrive);
-    // m_right.set(-rightDrive);
+    m_left.set(leftDrive);
+    m_right.set(-rightDrive);
 
     }
 
@@ -110,7 +113,9 @@ public class RobotDrive extends SubsystemBase {
     // gearbox 12.75:1
     // 6 in diameter - 12 pi circumference
     // in inches
-    return getLength((Math.abs(m_FLencoder.getPosition()) + Math.abs(m_FRencoder.getPosition())+Math.abs(m_RLencoder.getPosition())+Math.abs(m_RRencoder.getPosition()))/4.0);
+    // 1.33569 units/inch
+    final double encPerInch = 1.33569;
+    return (1/encPerInch) * getLength((Math.abs(m_FLencoder.getPosition()) + Math.abs(m_FRencoder.getPosition())+Math.abs(m_RLencoder.getPosition())+Math.abs(m_RRencoder.getPosition()))/4.0);
   }
 
   public double getAngle(double ticks){
@@ -118,6 +123,7 @@ public class RobotDrive extends SubsystemBase {
   }
 
   public double getTurnAmount(){
+    // 0.375 units/degree cw
     return getAngle((Math.abs(m_FRencoder.getPosition())+Math.abs(m_RRencoder.getPosition())+Math.abs(m_RLencoder.getPosition())+Math.abs(m_RRencoder.getPosition()))/4.0);
   }
 
@@ -129,7 +135,17 @@ public class RobotDrive extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    double count;
     this.arcadeDriveSimple(RobotContainer.getLeftStickX(), RobotContainer.getLeftStickY(), .5);
+    // Timer time = new Timer();
+    // for(count = 0.1; count <1; count+=.2){
+      
+    //   time.start();
+    //   while(time.get()<.00000005){
+    //     this.arcadeDriveSimple(RobotContainer.getLeftStickX(), RobotContainer.getLeftStickY(), .5*count);
+
+    //   }
+    // }
     //System.out.println("Distance " + RobotDrive.getDistanceStraight());
     getDistanceStraight();
 

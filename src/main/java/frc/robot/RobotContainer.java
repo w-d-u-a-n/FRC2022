@@ -162,8 +162,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(m_driverController, XboxController.Button.kB.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
     new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_ElevatorMoveTopCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_ElevatorMoveBottomCommand);
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallIntakeCommand);
     new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_ShootingRotateCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ClimbingHangCommand);
     //new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_moveIndexThreeCommand);
     //new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_BallOutCommand);
   }
@@ -321,7 +323,7 @@ public class RobotContainer {
   public static double calcSpeed(){
     double distance = calcDistance(limelightTrackingY());
     final double m = 0.00084;
-    final double b = 0.502;
+    final double b = 0.520;
     return m * distance + b;
   }
 
