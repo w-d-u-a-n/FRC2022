@@ -8,7 +8,7 @@ import frc.robot.subsystems.Climbing;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class ClimbingHangCommand extends CommandBase {
+public class ClimbingUpCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Climbing m_subsystem;
 
@@ -17,7 +17,7 @@ public class ClimbingHangCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ClimbingHangCommand(Climbing subsystem) {
+  public ClimbingUpCommand(Climbing subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);

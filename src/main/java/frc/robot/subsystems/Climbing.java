@@ -9,19 +9,19 @@ import frc.robot.Constants.AutoConstants;
 
 public class Climbing extends SubsystemBase {
   /** Creates a new Climbing. */
-  //private PWMSparkMax m_Climbing1 = new PWMSparkMax(13);
+  private PWMSparkMax m_Climbing1 = new PWMSparkMax(AutoConstants.climbing);
 
   public Climbing() {}
 
   public void climbUp(){
-  //m_Climbing1.set (0.5);
+    m_Climbing1.set (0.5);
   }
   public void climbDown(){
-  //m_Climbing1.set (-0.5);
+    m_Climbing1.set (-0.5);
   }
 
   public void stop(){
-   // m_Climbing1.set (0);
+    m_Climbing1.set (0);
   }
   @Override
   public void periodic() {
