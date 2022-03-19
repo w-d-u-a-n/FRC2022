@@ -26,7 +26,6 @@ public class AutoCommand extends CommandBase {
   private final Elevator elevator_subsystem;
   private double m_speed;
   private Timer t;
-  private int[] seconds;
   private final double endTime = 14.5; //end of Autonomous period and just 0.5s to transition
 
 /**
@@ -38,10 +37,9 @@ public class AutoCommand extends CommandBase {
  * @param e_sub
  * @param speed
  * @param angle
- * @param sec
- *        [time to align from start, shooting time, ball retreival]
+ * 
  */
-  public AutoCommand(RobotDrive d_sub, BallIntake i_sub, Shooting s_sub, ShootingRotate r_sub, Elevator e_sub, double speed, int[] sec) {
+  public AutoCommand(RobotDrive d_sub, BallIntake i_sub, Shooting s_sub, ShootingRotate r_sub, Elevator e_sub, double speed) {
     //HC 01/18/22
     drive_subsystem = d_sub;
     intake_subsystem = i_sub;
@@ -49,7 +47,7 @@ public class AutoCommand extends CommandBase {
     rotator_subsystem = r_sub;
     elevator_subsystem = e_sub;
     m_speed = speed;
-    seconds = sec;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive_subsystem);
     addRequirements(intake_subsystem);
@@ -76,34 +74,47 @@ public class AutoCommand extends CommandBase {
     //RobotDrive.gyro.zeroYaw();
     //drive_subsystem.resetEncoders();
 
-    // if(RobotDrive.getDistanceStraight() >= 1) {
-    //   drive_subsystem.arcadeDriveSimple(0, 0, 0);
-    // } else {
-    //   drive_subsystem.arcadeDriveSimple(-m_speed, 0-RobotDrive.PID(), .5);
-    // }
-  //   ShootingRotate.adjustX();
-  //     while(t.get() < 3){
-  //   shooting_subsystem.shootTop(.5692);
-  //     }
-  //   while(t.get() < 4){
-  //     //elevator_subsystem.moveUp();
-  //     elevator_subsystem.moveUp2();
-  //     elevator_subsystem.moveUp3();
-  //   }
-  //   //elevator_subsystem.stop1();
-  //   elevator_subsystem.stop2();
-  //   elevator_subsystem.stop3();
-  //   shooting_subsystem.shootTop(0);
+    // Autoadjusts the hood
+    rotator_subsystem.adjustX();
+    // Starts the top shooting motor
+      while(t.get() < 3){
+    shooting_subsystem.shootTop(.5692);
+      }
+    // Moves the ball up the elevator
+    while(t.get() < 4){
+      //elevator_subsystem.moveUp();
+      elevator_subsystem.moveUp2();
+      elevator_subsystem.moveUp3();
+    }
+    // Sets elevator and shoot motor to 0
+    //elevator_subsystem.stop1();
+    elevator_subsystem.stop2();
+    elevator_subsystem.stop3();
+    shooting_subsystem.shootTop(0);
   
-  // while(RobotDrive.getDistanceStraight() < 75){
+    /**
+     * UNCOMMENT STARTING HERE!!
+     */ 
 
-  //     drive_subsystem.arcadeDriveSimple(-m_speed, 0-RobotDrive.PID(), -1);
-  //   }
-  //   drive_subsystem.arcadeDriveSimple(0, 0, 0);
-  while(t.get() < 10) {
-  drive_subsystem.arcadeDriveSimple(-m_speed, -0.5, -0.5);
-}
-drive_subsystem.arcadeDriveSimple(0, 0, 0);
+    // // Drive backwards
+    // while(RobotDrive.getDistanceStraight() < 85 && t.get() < 15){
+    //     drive_subsystem.arcadeDriveSimple(-m_speed, 0-RobotDrive.PID(), -1);
+    //   }
+    //   drive_subsystem.arcadeDriveSimple(0, 0, 0);
+
+    // // Turn
+    // while(RobotDrive.getTurnAmount() < 120 && t.get() < 15) {
+    // drive_subsystem.arcadeDriveSimple(m_speed, 0.5, 0.5);
+    // }
+    // drive_subsystem.arcadeDriveSimple(0, 0, 0);
+   
+    // // Drive forwards
+    // while(RobotDrive.getDistanceStraight() < 140 && t.get() < 15){
+    //   drive_subsystem.arcadeDriveSimple(m_speed, 0-RobotDrive.PID(), 1);
+    // }
+    // drive_subsystem.arcadeDriveSimple(0, 0, 0);
+  
+  // -----------------------------------------------------
 
   //   shooting_subsystem.shootTop(.5);
     
@@ -148,22 +159,6 @@ drive_subsystem.arcadeDriveSimple(0, 0, 0);
   //   elevator_subsystem.moveUp();
   //   elevator_subsystem.moveUp2();
   //   elevator_subsystem.moveUp3();
-
-    /*
-    //Shoot - HC
-    while(t.get() > seconds[0] && t.get() < seconds[1]) {
-      shooting_subsystem.shootTop(0.5); //TO-DO: Update strength value
-    }
-    //Retreive ball drive - HC
-    
-    while(t.get() > seconds[1] && t.get() < seconds[2]) {
-      drive_subsystem.arcadeDriveSimple(m_speed, 90-RobotDrive.PID(), .5);
-    }
-    //Retreive ball intake - HC
-    while(t.get() > seconds[2] && t.get() < endTime) {
-      intake_subsystem.ballTake();
-    }*/
-
   }
 
   // Called once the command ends or is interrupted.
