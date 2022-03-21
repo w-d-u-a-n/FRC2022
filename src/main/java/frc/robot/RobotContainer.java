@@ -110,6 +110,7 @@ public class RobotContainer {
   // }
 
   public static boolean getHoodLimitSwitch(){
+    //System.out.println("limit switch for hood: "+hoodLimitSwitch.get());
     return hoodLimitSwitch.get();
   }
 
@@ -120,16 +121,36 @@ public class RobotContainer {
   //   return m_controller.getRightY();
   // }
   public static double getLeftStickY(){
-    return m_driverController.getRawAxis(0);
+    double axis=m_driverController.getRawAxis(0);
+    if(axis<0.02&&axis>-0.02)
+    {
+      axis=0;
+    }
+    return axis;
   }
   public static double getLeftStickX(){
-    return m_driverController.getRawAxis(1);
+    double axis=m_driverController.getRawAxis(1);
+    if(axis<0.02&&axis>-0.02)
+    {
+      axis=0;
+    }
+    return axis;
   }
   public static double getJoystickXAxis(){
-    return m_driverController.getRawAxis(2);
+    double axis=m_driverController.getRawAxis(2);
+    if(axis<0.02&&axis>-0.02)
+    {
+      axis=0;
+    }
+    return axis;
   }
   public static double  getJoystickYAxis(){
-    return m_driverController.getRawAxis(3);
+    double axis=m_driverController.getRawAxis(3);
+    if(axis<0.02&&axis>-0.02)
+    {
+      axis=0;
+    }
+    return axis;
   }
   
   
