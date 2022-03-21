@@ -73,23 +73,23 @@ public class ShootingRotate extends SubsystemBase {
     return m_AngleRotateEncoder.getPosition();
   }
 
-  public void adjustZ(){
-    currentPos = m_AngleRotateEncoder.getPosition();
-    newPos = RobotContainer.limelightAdjustY();
-    while(Math.abs(newPos - currentPos) > 1){
-      if(newPos > currentPos){
-        m_angleRotator.set(.4);
-      }
-      if(newPos < currentPos){
-        m_angleRotator.set(.4);
-      }
-    }
-    currentPos = newPos;
+  // public void adjustZ(){
+  //   currentPos = m_AngleRotateEncoder.getPosition();
+  //   newPos = RobotContainer.limelightAdjustY();
+  //   while(Math.abs(newPos - currentPos) > 1){
+  //     if(newPos > currentPos){
+  //       m_angleRotator.set(.4);
+  //     }
+  //     if(newPos < currentPos){
+  //       m_angleRotator.set(.4);
+  //     }
+  //   }
+  //   currentPos = newPos;
 
-    if(RobotContainer.getHoodLimitSwitch()){
-      (ShootingRotate.m_AngleRotateEncoder).setPosition(0);
-      }
-  }
+  //   if(RobotContainer.getHoodLimitSwitch()){
+  //     (ShootingRotate.m_AngleRotateEncoder).setPosition(0);
+  //     }
+  // }
 
   public void stop(){
     m_Rotator.set(0);
@@ -98,11 +98,12 @@ public class ShootingRotate extends SubsystemBase {
 
   public void adjustX(){
     while(Math.abs(RobotContainer.limelightTrackingX()) > 3){
+        final double speed = 0.3;
         if(RobotContainer.limelightTrackingX() > 0 ){
-          m_Rotator.set(.3);
+          m_Rotator.set(speed);
         }
         if(RobotContainer.limelightTrackingX() < 0){
-          m_Rotator.set(-.3);
+          m_Rotator.set(-1*speed);
 
       }
     }
@@ -115,10 +116,10 @@ public class ShootingRotate extends SubsystemBase {
    */
   public void adjustHood(){
     double angle = RobotContainer.calcHoodAngle();
-    final double speed = 0.3;
+    final double speed = 0.35;
     while (Math.abs(ShootingRotate.m_AngleRotateEncoder.getPosition()-angle) > 10){
       //I'm too lazy to write a PID loop so let's hope that by the time the motor stops 10 degrees before, when it stops
-      // spinning it will reach 
+      // spinning it will reach our desired angle
       if(ShootingRotate.m_AngleRotateEncoder.getPosition() > angle){
         m_angleRotator.set(-1*speed);
       } else{

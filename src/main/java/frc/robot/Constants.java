@@ -16,26 +16,25 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    //Constants copied and pasted from 2020 code
+    // Constants copied and pasted from 2020 code
     public static final class AutoConstants{
         public static final XboxController m_driverController = new XboxController(1);
         public static final Joystick m_driverJoystick = new Joystick(2);
-        
-        /**
-         * TO-DO: Edit all constants to correspond to the correct port - HC 01/12/2022
-         */
+    
+
         public static final double kP = 1/3600;
         public static final double kI = 0;
         public static final double kD = 0;
         public static final double kTargetAngle = 0;
         public static final double kDistance = 100;
         public static final double kSpeed = 0.7;
+        // Motor Constants
         public static final int intakePort = 5;
         public static final int shooter_right=8;
         public static final int shooter_left=7;
         public static final int shootRotate = 3;
         public static final int shootAngleRotate = 15;
-        public static final int hanging = 0;
+        public static final int climbing = 0; //change
         public static final int index2 = 10;
         public static final int index3 = 13;
         public static final int elevator = 14;
@@ -45,7 +44,7 @@ public final class Constants {
         public static final int frontRightDrive = 4;
         public static final int ballLimitSwitchPort = 0; //change
         public static final int hoodLimitSwitchPort = 5;
-        //public static final int climbingMotor;
+
         /*
         private SpeedController m_rearLeft = new PWMVictorSPX(0);
         private SpeedController m_frontLeft = new PWMVictorSPX(1);

@@ -66,6 +66,7 @@ public class RobotDrive extends SubsystemBase {
     m_right.set(-rightDrive);
     System.out.println("Drive Angle value: " + getTurnAmount());
     //ShootingRotate.adjustX();
+    //ShootingRotate.adjustHood();
     }
 
     //TEST THIS LATER
@@ -122,9 +123,10 @@ public class RobotDrive extends SubsystemBase {
     return getLength(ticks)/(24.819*Math.PI)*360.0;
   }
 
-  public double getTurnAmount(){
+  public static double getTurnAmount(){
     // 0.375 units/degree cw
-    return getAngle((Math.abs(m_FRencoder.getPosition())+Math.abs(m_RRencoder.getPosition())+Math.abs(m_RLencoder.getPosition())+Math.abs(m_RRencoder.getPosition()))/4.0);
+    final double encPerRotation = 0.375;
+    return 1/encPerRotation * ((Math.abs(m_FRencoder.getPosition())+Math.abs(m_RRencoder.getPosition())+Math.abs(m_RLencoder.getPosition())+Math.abs(m_RRencoder.getPosition()))/4.0);
   }
 
 
@@ -135,7 +137,7 @@ public class RobotDrive extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double count;
+    //double count;
     this.arcadeDriveSimple(RobotContainer.getLeftStickX(), RobotContainer.getLeftStickY(), .5);
     // Timer time = new Timer();
     // for(count = 0.1; count <1; count+=.2){

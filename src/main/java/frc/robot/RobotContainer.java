@@ -50,13 +50,13 @@ public class RobotContainer {
   private final Shooting m_Shooting = new Shooting();
   private final ShootingRotate m_ShootingRotate = new ShootingRotate();
   
-  private int[] timing = new int[]{0, 6, 12};
+  //private int[] timing = new int[]{0, 6, 12};
   private final ExampleCommand m_exampleCommand = new ExampleCommand(m_exampleSubsystem);
-  private final AutoCommand m_AutoCommand = new AutoCommand(m_RobotDrive, m_BallIntake, m_Shooting, m_ShootingRotate, m_Elevator, .5, timing);
+  private final AutoCommand m_AutoCommand = new AutoCommand(m_RobotDrive, m_BallIntake, m_Shooting, m_ShootingRotate, m_Elevator, .5);
   private final BallIntakeCommand m_BallIntakeCommand = new BallIntakeCommand(m_BallIntake);
   private final BallShootTopCommand m_BallShootTopCommand = new BallShootTopCommand(m_Shooting);
-  private final ClimbingHangCommand m_ClimbingHangCommand = new ClimbingHangCommand(m_Climbing);
-  private final ClimbingTraverseCommand m_ClimbingTraverseCommand = new ClimbingTraverseCommand(m_Climbing);
+  private final ClimbingUpCommand m_ClimbingUpCommand = new ClimbingUpCommand(m_Climbing);
+  private final ClimbingDownCommand m_ClimbingDownCommand = new ClimbingDownCommand(m_Climbing);
   private final DriveCommand m_DriveCommand = new DriveCommand(m_RobotDrive);
   private final ElevatorMoveBottomCommand m_ElevatorMoveBottomCommand = new ElevatorMoveBottomCommand(m_Elevator);
   private final ShootingRotateCommand m_ShootingRotateCommand = new ShootingRotateCommand(m_ShootingRotate);
@@ -153,8 +153,6 @@ public class RobotContainer {
     return axis;
   }
   
-  
-
 
 // public static double getLeftStickY(){
 //    return m_controller.getLeftY();
@@ -186,9 +184,9 @@ public class RobotContainer {
     new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_ElevatorMoveBottomCommand);
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallIntakeCommand);
     new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_ShootingRotateCommand);
-    new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ClimbingHangCommand);
-    //new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_moveIndexThreeCommand);
-    //new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_BallOutCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_BallOutCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kStart.value).whileHeld(m_ClimbingUpCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kBack.value).whileHeld(m_ClimbingDownCommand);
   }
 
 
@@ -199,8 +197,6 @@ public class RobotContainer {
   //    new JoystickButton(m_driverController, PS4Controller.Button.kL2.value).whileHeld(m_BallIntakeCommand);
   //    new JoystickButton(m_driverController, PS4Controller.Button.kL1.value).whileHeld(m_moveIndexThreeCommand);
   //    new JoystickButton(m_driverController, PS4Controller.Button.kR1.value).whileHeld(m_BallOutCommand);
-
-
   // }
 
   // public static XboxController getXboxController(){
@@ -255,77 +251,10 @@ public class RobotContainer {
     return velocity; 
   }
 
-
   public static double getDistance() { 
     leftEncoder.reset();
     rightEncoder.reset();
     return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
-  }
-
-  /**
-   * We need to test this and figure out anything logistical errors as well as see if this even works.
-   * Takes in tx, ty, and ta from the limelight and outputs aim_adjust for the shooting rotator.
-   * HC 02/05/2022
-   * @return the constant to adjust the turret left or right
-   */
-  public static double limelightAdjustX() {
-    /**
-     * Once this works we can take in the current robot speed and factor that into our calculations same with limelightAdjustY()
-     */
-    double KpAim = -0.1;
-    double min_aim_command = 0.05;
-    double tx = RobotContainer.limelightTrackingX();
-    double aim_adjust = 0;
-    
-    //TO-DO: Make sure to bind this to an XBox Controller button
-    if (RobotContainer.limelightTrackTarget()) {
-      double heading_error = -1 * tx;
-
-    
-      //AIM_ADJUST
-      if (tx > 1.0) {
-        aim_adjust = KpAim*heading_error - min_aim_command;
-      } else if (tx < 1.0) {
-      //otherwise the robot won’t adjust to these tiny increments due to friction
-        aim_adjust = KpAim*heading_error + min_aim_command;
-      }
-    }
-    return aim_adjust;
-  }
-
-  /**
-   * We need to test this and figure out anything logistical errors as well as see if this even works.
-   * Takes in ty, and ta from the limelight and outputs an angle_adjust for the shooting rotator.
-   * HC 02/05/2022
-   * @return the constant to adjust the angle the turret is aimed
-   */
-
-
-  public static double limelightAdjustY() {
-    double KpTrajectory = -0.05; //not sure what to set this at
-    double min_aimAngle_command = 0.05; //what should this be set at
-    final double baseArea = 0.5; //change
-    double angle_adjust = 0;
-    
-    double ty = RobotContainer.limelightTrackingY();
-    double ta = RobotContainer.limelightTrackingA();
-    
-    //TO-DO: Make sure to bind this to an XBox Controller button
-    if (RobotContainer.limelightTrackTarget()) {
-      double trajectory_error = -1 * ty;    
-      //ANGLE_ADJUST - accounts for both difference in target area and y adjustments
-      if (ty > 1.0 ) {
-        angle_adjust = KpTrajectory*trajectory_error - min_aimAngle_command;
-      } else if (ty < 1.0) {
-        angle_adjust = KpTrajectory*trajectory_error + min_aimAngle_command;
-      }
-      if (ta > baseArea ) {
-        angle_adjust += 50 * (ta-baseArea)/baseArea; //arbitrary function 50 might be too much of an angle adjustment
-      } else if (ta < baseArea) {
-        angle_adjust -= 50 * (ta-baseArea)/baseArea;
-      }
-    }
-    return angle_adjust;
   }
 
   /**
@@ -334,17 +263,19 @@ public class RobotContainer {
    */
   public static double calcHoodAngle(){
     double distance = calcDistance(limelightTrackingY());
-    final double const1 = 259.9685;
-    final double const2 = -79.16438;
-    final double const3 = 36.48913;
-    final double exp1 = 52.96317;
-    final double exp2 = 0.01752133;
+    final double const1 = 272.6176;
+    final double const2 = 118.6994;
+    final double const3 = 31.02895;
+    final double exp1 = 27.63411;
+    final double exp2 = 0.02933411;
+
     return const1 - (const2 + const1)/Math.pow(1 + Math.pow((distance/const3), exp1), exp2);
   }
   public static double calcSpeed(){
     double distance = calcDistance(limelightTrackingY());
     final double m = 0.00084;
-    final double b = 0.520;
+    final double b = 0.502;
+
     return m * distance + b;
   }
 
