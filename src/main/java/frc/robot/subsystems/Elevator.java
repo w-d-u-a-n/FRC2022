@@ -69,11 +69,11 @@ public class Elevator extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     
-    if (RobotContainer.m_joystick.getRawButton(1)) {
-      moveUp();
-    } else {
-      stop1();
-    }
+    // if (RobotContainer.m_joystick.getRawButton(1)) {
+    //   moveUp();
+    // } else {
+    //   stop1();
+    // }
   }
 
   @Override

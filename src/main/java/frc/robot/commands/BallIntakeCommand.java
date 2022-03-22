@@ -37,7 +37,7 @@ public class BallIntakeCommand extends CommandBase{
     System.out.println("BallIntakeCommand execute.");
     //HC - I just added a boolean for this command to test shuffleboard.
     //If this is useful we can do this for the rest of the commands otherwise, we can just delete this.
-    SmartDashboard.putBoolean("BallIntake Command", commandCalled);
+    //SmartDashboard.putBoolean("BallIntake", commandCalled);
     m_subsystem1.ballTake();//rr
   }
 

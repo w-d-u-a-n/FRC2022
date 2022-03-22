@@ -38,6 +38,7 @@ public class ShootingRotate extends SubsystemBase {
     SmartDashboard.putNumber("LimelightX", RobotContainer.limelightTrackingX());
     RobotContainer.switchRotateStatus();*/
     move(RobotContainer.getJoystickXAxis(), RobotContainer.getJoystickYAxis());
+    SmartDashboard.putNumber("Hood Angle: ", getZEncoder());
     System.out.println("Angle Measurement: " + getZEncoder());
     
   }
