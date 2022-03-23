@@ -40,6 +40,7 @@ public class ShootingRotate extends SubsystemBase {
     move(RobotContainer.getJoystickXAxis(), RobotContainer.getJoystickYAxis());
     SmartDashboard.putNumber("Hood Angle: ", getZEncoder());
     System.out.println("Angle Measurement: " + getZEncoder());
+    SmartDashboard.putNumber("Distance", RobotContainer.calcDistance(RobotContainer.limelightTrackingY()));
     
   }
   //Methods written by RR 1/11/2022

@@ -58,7 +58,11 @@ public class Shooting extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    
+    if(RobotContainer.rightTriggerAxis()){
+      this.shootTop(RobotContainer.calcSpeed());
+    } else{
+      this.stop();
+    }
   }
 
   @Override

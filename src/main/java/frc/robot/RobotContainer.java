@@ -37,9 +37,9 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //RR 1/11/2022
-  public static final XboxController m_driverController = new XboxController(0);//change
+  public static final XboxController m_driverController = new XboxController(1);//change
   public static final PS4Controller m_controller = new PS4Controller(3);
-  public static final Joystick m_joystick = new Joystick(1);
+  //public static final Joystick m_joystick = new Joystick(1);
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Auto m_auto = new Auto();
@@ -121,10 +121,10 @@ public class RobotContainer {
   //   return m_controller.getRightY();
   // }
   public static double getLeftStickY(){
-    double axis=m_driverController.getRawAxis(0);
-    if(axis<0.02&&axis>-0.02)
+    double axis = m_driverController.getRawAxis(0);
+    if(Math.abs(axis) < 0.02)
     {
-      axis=0;
+      axis = 0;
     }
     return axis;
   }
@@ -137,7 +137,7 @@ public class RobotContainer {
     return axis;
   }
   public static double getJoystickXAxis(){
-    double axis=m_driverController.getRawAxis(2);
+    double axis=m_driverController.getRawAxis(4);
     if(axis<0.02&&axis>-0.02)
     {
       axis=0;
@@ -145,12 +145,21 @@ public class RobotContainer {
     return axis;
   }
   public static double  getJoystickYAxis(){
-    double axis=m_driverController.getRawAxis(3);
+    double axis=m_driverController.getRawAxis(5);
     if(axis<0.02&&axis>-0.02)
     {
       axis=0;
     }
     return axis;
+  }
+
+  public static boolean leftTriggerAxis(){
+    double axis = m_driverController.getRawAxis(2);
+    return Math.abs(axis)>0.1;
+  }
+  public static boolean rightTriggerAxis(){
+    double axis = m_driverController.getRawAxis(3);
+    return Math.abs(axis)>0.1;
   }
   
 
@@ -180,13 +189,14 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     new JoystickButton(m_driverController, XboxController.Button.kB.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
-    new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_ElevatorMoveTopCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ElevatorMoveTopCommand);
     new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_ElevatorMoveBottomCommand);
-    new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_BallIntakeCommand);
-    new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_ShootingRotateCommand);
-    new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_BallOutCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_ShootingRotateCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_BallOutCommand);
     new JoystickButton(m_driverController, XboxController.Button.kStart.value).whileHeld(m_ClimbingUpCommand);
     new JoystickButton(m_driverController, XboxController.Button.kBack.value).whileHeld(m_ClimbingDownCommand);
+    // new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ClimbingUpCommand);
+    // new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_ClimbingDownCommand);
   }
 
 
@@ -276,7 +286,13 @@ public class RobotContainer {
     final double m = 0.00084;
     final double b = 0.502;
 
-    return m * distance + b;
+    double speed;
+    if(limelightTrackTarget()){
+      speed = m * distance + b;
+    } else{
+      speed = 0.5;
+    }
+    return speed;
   }
 
   /**
@@ -295,11 +311,11 @@ public class RobotContainer {
   // }
 
   public static double calcDistance(double ty){
-    final double a1 = 37;
+    final double a1 = 32;
     final double h1 = 29.5;
     final double h2 = 104;
 
-    return (h2-h1) / Math.tan((a1+ty)*Math.PI/180);
+    return ((h2-h1) / Math.tan((a1+ty)*Math.PI/180))+20;
   }
 
 /** HC - 01/12/2022
