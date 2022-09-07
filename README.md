@@ -1,1 +1,1 @@
-WIP
+Info [here](https://docs.wpilib.org/en/stable/docs/zero-to-robot/) for the robot building process.
