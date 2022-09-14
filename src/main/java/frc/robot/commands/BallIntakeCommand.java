@@ -6,11 +6,11 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.BallIntake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.smartdashboard.*; // flagged as unused by VSCode -PB
 
 /** An example command that uses an example subsystem. */
 public class BallIntakeCommand extends CommandBase{
-  private static boolean commandCalled = false;
+  private static boolean commandCalled = false; // flagged as unused by VSCode -PB
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final BallIntake m_subsystem1;
 

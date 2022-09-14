@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Auto;
+import frc.robot.subsystems.Auto; // flagged as unused by VSCode -PB
 import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.RobotDrive;
@@ -23,10 +23,10 @@ public class AutoCommand extends CommandBase {
   private final BallIntake intake_subsystem;
   private final Shooting shooting_subsystem;
   private final ShootingRotate rotator_subsystem;
-  private final Elevator elevator_subsystem;
+  private final Elevator elevator_subsystem; // flagged as unused by VSCode -PB
   private double m_speed;
   private Timer t;
-  private final double endTime = 14.5; //end of Autonomous period and just 0.5s to transition
+  private final double endTime = 14.5; //end of Autonomous period and just 0.5s to transition // flagged as unused by VSCode -PB
 
 /**
  * Creates a new Auto Command
