@@ -7,6 +7,7 @@ package frc.robot.commands;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooting;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -34,9 +35,12 @@ public class ShootingVisionCommand extends CommandBase {
   public void execute() {
     m_subsystem.shootTop(RobotContainer.getShootSpeedValue());
     System.out.println ("ShootingVisionCommand execute.");
-    SmartDashboard.putNumber("Limelight tx", RobotContainer.limelightTrackingX()); //HC
-    SmartDashboard.putNumber("Limelight ty", RobotContainer.limelightTrackingY());
-    SmartDashboard.putNumber("Limelight ta", RobotContainer.limelightTrackingA());
+    SmartDashboard.putNumber("tx", RobotContainer.limelightTrackingX()); //HC
+    SmartDashboard.putNumber("ty", RobotContainer.limelightTrackingY());
+    SmartDashboard.putNumber("ta", RobotContainer.limelightTrackingA());
+
+    //private NetworkTableEntry txEntry = Shuffleboard.getTab("SmartDashboard").add("tx", 0).getEntry();
+    
   }
 
   // Called once the command ends or is interrupted.

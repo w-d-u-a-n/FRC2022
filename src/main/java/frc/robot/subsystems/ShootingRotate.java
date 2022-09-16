@@ -21,7 +21,7 @@ import frc.robot.subsystems.RobotDrive;
 
 public class ShootingRotate extends SubsystemBase {
   /** Creates a new ShootingRotate. */
-  private static CANSparkMax m_Rotator = new CANSparkMax(AutoConstants.shootRotate, MotorType.kBrushless);
+ /* private static CANSparkMax m_Rotator = new CANSparkMax(AutoConstants.shootRotate, MotorType.kBrushless);
   private static CANSparkMax m_angleRotator = new CANSparkMax(AutoConstants.shootAngleRotate, MotorType.kBrushless);
 
   public static RelativeEncoder m_AngleRotateEncoder = m_angleRotator.getEncoder();
@@ -29,7 +29,7 @@ public class ShootingRotate extends SubsystemBase {
   public double currentPos = 0.0;
   public double newPos = 0.0;
 
-  public ShootingRotate() {}
+  public ShootingRotate() {}*/
 
   @Override
   public void periodic() {
@@ -37,26 +37,31 @@ public class ShootingRotate extends SubsystemBase {
     /*System.out.println(RobotContainer.limelightTrackingX());
     SmartDashboard.putNumber("LimelightX", RobotContainer.limelightTrackingX());
     RobotContainer.switchRotateStatus();*/
-    move(RobotContainer.getJoystickXAxis(), RobotContainer.getJoystickYAxis());
-    System.out.println("Angle Measurement: " + getZEncoder());
-    
+   /* if(Shooting.adjustStatus()){
+      move(RobotContainer.getJoystickXAxis(), RobotContainer.getJoystickYAxis());
+    }
+    SmartDashboard.putNumber("Hood Angle: ", getZEncoder());
+    SmartDashboard.putNumber("Distance", RobotContainer.calcDistance(RobotContainer.limelightTrackingY()));
+    */
   }
   //Methods written by RR 1/11/2022
   public void move(double aimAngle, double trajectoryAngle){
-   if(!(RobotContainer.getHoodLimitSwitch() /*&& trajectoryAngle < 0.5*/)){
-      m_angleRotator.set(trajectoryAngle);
+   //if(!(RobotContainer.getHoodLimitSwitch() /*&& trajectoryAngle < 0.5*/)){
+   /*   m_angleRotator.set(-trajectoryAngle);
     } else if(trajectoryAngle < 0 ){
-      m_angleRotator.set(trajectoryAngle);
+      m_angleRotator.set(-trajectoryAngle);
     } else {
-    ShootingRotate.m_AngleRotateEncoder.setPosition(0);
+      m_angleRotator.set(0);
+      ShootingRotate.m_AngleRotateEncoder.setPosition(0);
       }
+
     /*if(Math.abs(trajectoryAngle) < .1){
       m_angleRotator.set(0);
     }
     else{
       m_angleRotator.set(trajectoryAngle);
     }*/
-    m_Rotator.set(aimAngle);
+   // m_Rotator.set(aimAngle);
     
     /*if(Math.abs(aimAngle) < .1){
       m_Rotator.set(0);
@@ -69,8 +74,13 @@ public class ShootingRotate extends SubsystemBase {
     
   }
 
+  public void runMotor(double speed){
+   // m_angleRotator.set(speed);
+  }
+
   public double getZEncoder(){
-    return m_AngleRotateEncoder.getPosition();
+    //return m_AngleRotateEncoder.getPosition();
+    return 0;
   }
 
   // public void adjustZ(){
@@ -92,12 +102,11 @@ public class ShootingRotate extends SubsystemBase {
   // }
 
   public void stop(){
-    m_Rotator.set(0);
-
+   // m_Rotator.set(0);
   }
 
   public void adjustX(){
-    while(Math.abs(RobotContainer.limelightTrackingX()) > 3){
+   /* while(Math.abs(RobotContainer.limelightTrackingX()) > 3){
         final double speed = 0.3;
         if(RobotContainer.limelightTrackingX() > 0 ){
           m_Rotator.set(speed);
@@ -107,7 +116,7 @@ public class ShootingRotate extends SubsystemBase {
 
       }
     }
-    m_Rotator.set(0);
+    m_Rotator.set(0);*/
   }
 
   /**
@@ -115,7 +124,7 @@ public class ShootingRotate extends SubsystemBase {
    * @param angle - angle we want to adjust to
    */
   public void adjustHood(){
-    double angle = RobotContainer.calcHoodAngle();
+    /*double angle = RobotContainer.calcHoodAngle();
     final double speed = 0.35;
     while (Math.abs(ShootingRotate.m_AngleRotateEncoder.getPosition()-angle) > 10){
       //I'm too lazy to write a PID loop so let's hope that by the time the motor stops 10 degrees before, when it stops
@@ -126,7 +135,7 @@ public class ShootingRotate extends SubsystemBase {
         m_angleRotator.set(speed);
       }
     }
-    m_angleRotator.set(0);
+    m_angleRotator.set(0);*/
   }
 
   @Override

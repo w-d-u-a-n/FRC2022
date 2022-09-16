@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.RobotContainer;
 import frc.robot.Constants;
@@ -64,7 +65,6 @@ public class RobotDrive extends SubsystemBase {
     if(!ShootingRotateCommand.rotateStatus){
     m_left.set(leftDrive);
     m_right.set(-rightDrive);
-    System.out.println("Drive Angle value: " + getTurnAmount());
     //ShootingRotate.adjustX();
     //ShootingRotate.adjustHood();
     }
@@ -138,7 +138,7 @@ public class RobotDrive extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     //double count;
-    this.arcadeDriveSimple(RobotContainer.getLeftStickX(), RobotContainer.getLeftStickY(), .5);
+    this.arcadeDriveSimple(RobotContainer.getLeftStickX(), RobotContainer.getLeftStickY(), .7);
     // Timer time = new Timer();
     // for(count = 0.1; count <1; count+=.2){
       
@@ -149,6 +149,8 @@ public class RobotDrive extends SubsystemBase {
     //   }
     // }
     //System.out.println("Distance " + RobotDrive.getDistanceStraight());
+    SmartDashboard.putNumber("Drive Straight", getDistanceStraight());
+    SmartDashboard.putNumber("Turn", getTurnAmount());
     getDistanceStraight();
 
   }

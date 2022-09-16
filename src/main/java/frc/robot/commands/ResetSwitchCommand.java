@@ -4,21 +4,20 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Shooting;
-import frc.robot.RobotContainer;
+import frc.robot.subsystems.ShootingRotate;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class BallShootTopCommand extends CommandBase {
+public class ResetSwitchCommand extends CommandBase{
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Shooting m_subsystem;
+  private final ShootingRotate m_subsystem;
 
   /**
-   * Creates a new BallShootTopCommand.
+   * Creates a new ResetSwitchCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public BallShootTopCommand(Shooting subsystem) {
+  public ResetSwitchCommand(ShootingRotate subsystem){
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -31,17 +30,13 @@ public class BallShootTopCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("BallShootTopCommand execute.");
-    m_subsystem.shootTop(RobotContainer.calcSpeed()/*.65[p7lk*/); //idea: write code in RobotContainer that gets vision value. Rahul Rajaram 1/11/2022 
-
+   // ShootingRotate.m_AngleRotateEncoder.setPosition(0);
+    m_subsystem.stop();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    System.out.println("BallShootTopCommand end.");
-    m_subsystem.stop();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
