@@ -25,7 +25,10 @@ public class ExampleCommand extends CommandBase { // hey Elliot,
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+    System.out.println("thingie initialized!");
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

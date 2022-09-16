@@ -6,11 +6,22 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
+
 public class ExampleSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public ExampleSubsystem() {}
 
-  @Override
+  // Motors
+  private final TalonFX motor = new TalonFX(7);
+  public void runMotor(float power) {
+    if (power > 1.0 || power < 0.0) return;
+    System.out.println("Running motor at " + power * 100 + "% power...");
+    motor.set(TalonFXControlMode.PercentOutput, 0.5); // runs the motor at 50% power
+  }
+
   public void periodic() {
     // This method will be called once per scheduler run
   }
