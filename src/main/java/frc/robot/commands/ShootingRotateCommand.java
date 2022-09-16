@@ -55,7 +55,7 @@ public class ShootingRotateCommand extends CommandBase {
     m_subsystem.stop();
     rotateStatus = false;
     if(RobotContainer.getHoodLimitSwitch()){
-    (ShootingRotate.m_AngleRotateEncoder).setPosition(0);
+   // (ShootingRotate.m_AngleRotateEncoder).setPosition(0);
     }
     System.out.println ("ShootingRotateCommand end.");
   }
