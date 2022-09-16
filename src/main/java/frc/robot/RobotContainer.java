@@ -37,7 +37,8 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //RR 1/11/2022
-  public static final XboxController m_driverController = new XboxController(1);//change
+  public static final XboxController m_driverController = new XboxController(3);
+  public static final XboxController m_driverController2 = new XboxController(1);//change
   public static final PS4Controller m_controller = new PS4Controller(3);
   //public static final Joystick m_joystick = new Joystick(1);
 
@@ -63,6 +64,10 @@ public class RobotContainer {
   private final ElevatorMoveTopCommand m_ElevatorMoveTopCommand = new ElevatorMoveTopCommand(m_Elevator);
   private final IndexTwo m_IndexTwo = new IndexTwo(m_Elevator, m_BallIntake);
   private final MoveIndexThree m_moveIndexThreeCommand = new MoveIndexThree(m_Elevator);
+  private final ResetSwitchCommand m_ResetSwitchCommand = new ResetSwitchCommand(m_ShootingRotate);
+  private final IncrementDistanceCommand m_IncrementCommand = new IncrementDistanceCommand(m_ShootingRotate);
+  private final DecrementDistanceCommand m_DecrementCommand = new DecrementDistanceCommand(m_ShootingRotate);
+  private final ShootStatusCommand m_ShootStatusCommand = new ShootStatusCommand(m_Shooting);
   private final BallOutCommand m_BallOutCommand = new BallOutCommand(m_Elevator);
   private static boolean adjustRotateOn = true;
 
@@ -73,7 +78,7 @@ public class RobotContainer {
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP); //HC - 01/13/22
   private static PIDController turnController = new PIDController(AutoConstants.kP, AutoConstants.kI, AutoConstants.kD);
-
+  public static double distanceError = 0;
   // private static DigitalInput ballLimitSwitch = new DigitalInput(AutoConstants.ballLimitSwitchPort);
   private static DigitalInput hoodLimitSwitch = new DigitalInput(AutoConstants.hoodLimitSwitchPort);
 
@@ -195,6 +200,11 @@ public class RobotContainer {
     new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_BallOutCommand);
     new JoystickButton(m_driverController, XboxController.Button.kStart.value).whileHeld(m_ClimbingUpCommand);
     new JoystickButton(m_driverController, XboxController.Button.kBack.value).whileHeld(m_ClimbingDownCommand);
+
+    new JoystickButton(m_driverController2, XboxController.Button.kLeftBumper.value).whileHeld(m_DecrementCommand);
+    new JoystickButton(m_driverController2, XboxController.Button.kRightBumper.value).whileHeld(m_IncrementCommand);
+    new JoystickButton(m_driverController2, XboxController.Button.kX.value).whileHeld(m_ResetSwitchCommand);
+    // new JoystickButton(m_driverController2, XboxController.Button.kB.value).whileHeld(m_ShootStatusCommand);
     // new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ClimbingUpCommand);
     // new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_ClimbingDownCommand);
   }
@@ -287,11 +297,11 @@ public class RobotContainer {
     final double b = 0.502;
 
     double speed;
-    if(limelightTrackTarget()){
-      speed = m * distance + b;
-    } else{
-      speed = 0.5;
-    }
+    //if(limelightTrackTarget()){
+      speed = m * distance + b + distanceError;
+    // } else{
+    //   speed = 0.5;
+    // }
     return speed;
   }
 
@@ -316,6 +326,10 @@ public class RobotContainer {
     final double h2 = 104;
 
     return ((h2-h1) / Math.tan((a1+ty)*Math.PI/180))+20;
+  }
+
+  public static void updateError(double error){
+    distanceError += error;
   }
 
 /** HC - 01/12/2022

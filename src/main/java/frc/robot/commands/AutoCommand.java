@@ -13,6 +13,7 @@ import frc.robot.subsystems.Shooting;
 import frc.robot.subsystems.ShootingRotate;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
+import com.revrobotics.RelativeEncoder;
 
 /** An example command that uses an example subsystem. */
 public class AutoCommand extends CommandBase {
@@ -75,28 +76,32 @@ public class AutoCommand extends CommandBase {
     //RobotDrive.gyro.zeroYaw();
     //drive_subsystem.resetEncoders();
 
-    drive_subsystem.resetEncoders();
-    // Autoadjusts the hood
+    //drive_subsystem.resetEncoders();
+    //Autoadjusts the hood
     // rotator_subsystem.adjustX();
-    // // Starts the top shooting motor
-    //   while(t.get() < 3){
-    // shooting_subsystem.shootTop(.5692);
-    //   }
-    // // Moves the ball up the elevator
-    // while(t.get() < 4){
-    //   //elevator_subsystem.moveUp();
-    //   elevator_subsystem.moveUp2();
-    //   elevator_subsystem.moveUp3();
+    // while(rotator_subsystem.getZEncoder() < 127){
+    //   rotator_subsystem.runMotor(0.3);
     // }
-    // // Sets elevator and shoot motor to 0
-    // //elevator_subsystem.stop1();
-    // elevator_subsystem.stop2();
-    // elevator_subsystem.stop3();
-    // shooting_subsystem.shootTop(0);
-  
-    /**
-     * UNCOMMENT STARTING HERE!!
-     */ 
+    // rotator_subsystem.stop();
+    // // Starts the top shooting motor
+    // double time = t.get();
+    // while(t.get()-time < 1){
+
+    // }
+    while(t.get() < 3){
+    shooting_subsystem.shootTop(.55);
+      }
+    // Moves the ball up the elevator
+    while(t.get() < 4){
+      elevator_subsystem.moveUp();
+      elevator_subsystem.moveUp2();
+      elevator_subsystem.moveUp3();
+    }
+    // Sets elevator and shoot motor to 0
+    elevator_subsystem.stop1();
+    elevator_subsystem.stop2();
+    elevator_subsystem.stop3();
+    shooting_subsystem.shootTop(0);
 
     // Drive backwards
     while(RobotDrive.getDistanceStraight() < 50 && t.get() < 15){
@@ -104,19 +109,19 @@ public class AutoCommand extends CommandBase {
     }
       drive_subsystem.arcadeDriveSimple(0, 0, 0);
 
-    // Turn
-    drive_subsystem.resetEncoders();
-    while(RobotDrive.getTurnAmount() < 30 /*&& t.get() < 15*/) {
-    drive_subsystem.arcadeDriveSimple(m_speed, 0.5, 0.7);
-    }
-    drive_subsystem.arcadeDriveSimple(0, 0, 0);
+    // // Turn
+    // drive_subsystem.resetEncoders();
+    // while(RobotDrive.getTurnAmount() < 30 /*&& t.get() < 15*/) {
+    // drive_subsystem.arcadeDriveSimple(m_speed, 0.5, 0.7);
+    // }
+    // drive_subsystem.arcadeDriveSimple(0, 0, 0);
    
-    // Drive forwards
-    drive_subsystem.resetEncoders();
-    while(RobotDrive.getDistanceStraight() < 120 && t.get() < 15){
-      drive_subsystem.arcadeDriveSimple(m_speed, 0-RobotDrive.PID(), 1);
-    }
-    drive_subsystem.arcadeDriveSimple(0, 0, 0);
+    // // Drive forwards
+    // drive_subsystem.resetEncoders();
+    // while(RobotDrive.getDistanceStraight() < 120 && t.get() < 15){
+    //   drive_subsystem.arcadeDriveSimple(m_speed, 0-RobotDrive.PID(), 1);
+    // }
+    // drive_subsystem.arcadeDriveSimple(0, 0, 0);
   
   // -----------------------------------------------------
 

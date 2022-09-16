@@ -13,10 +13,10 @@ public class Climbing extends SubsystemBase {
   public Climbing(){}
 
   public void climbUp(){
-    m_Climbing1.set(0.5);
+    m_Climbing1.set(0.75);
   }
   public void climbDown(){
-    m_Climbing1.set(-0.5);
+    m_Climbing1.set(-0.75);
   }
 
   public void stop(){
